@@ -17,7 +17,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Ad" />
+        android:hint="Ad"
+        android:drawableLeft="@drawable/user"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,7 +31,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/txtFirstName"
         android:layout_alignEnd="@+id/txtFirstName"
-        android:hint="SoyAd" />
+        android:hint="SoyAd"
+        android:drawableLeft="@drawable/user"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -43,7 +45,8 @@
         android:hint="E-Mail Adresi"
         android:layout_below="@+id/txtLastName"
         android:layout_alignRight="@+id/txtLastName"
-        android:layout_alignEnd="@+id/txtLastName" />
+        android:layout_alignEnd="@+id/txtLastName"
+        android:drawableLeft="@drawable/email"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -58,7 +61,8 @@
         android:layout_toStartOf="@+id/btnShow"
         android:password="false"
         android:hint="Şifre"
-        android:maxLength="15" />
+        android:maxLength="15"
+        android:drawableLeft="@drawable/password"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -81,7 +85,8 @@
         android:layout_alignRight="@+id/btnShow"
         android:layout_alignEnd="@+id/btnShow"
         android:hint="Şifre (Tekrar)"
-        android:maxLength="15" />
+        android:maxLength="15"
+        android:drawableLeft="@drawable/password"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -103,5 +108,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="Telefon(Basinda 0 olmadan yaziniz)"
-        android:maxLength="14" />
+        android:maxLength="14"
+        android:drawableLeft="@drawable/phone"/>
 </RelativeLayout>
