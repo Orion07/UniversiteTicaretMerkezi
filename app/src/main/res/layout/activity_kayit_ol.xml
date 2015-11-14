@@ -71,7 +71,9 @@
         android:id="@+id/btnShow"
         android:layout_below="@+id/txtEmail"
         android:layout_alignRight="@+id/txtEmail"
-        android:layout_alignEnd="@+id/txtEmail" />
+        android:layout_alignEnd="@+id/txtEmail"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button_default_bg" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -94,7 +96,9 @@
         android:text="Kaydı Tamamla"
         android:id="@+id/btnSignup"
         android:layout_below="@+id/txtPhone"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@style/DefaultButtonText"
+        android:background="@drawable/button_default_bg" />
 
     <EditText
         android:layout_width="wrap_content"
