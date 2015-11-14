@@ -32,6 +32,8 @@ public class GirisActivity extends AppCompatActivity {
         }
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
+        txtEmail.setText("l1211016020@stud.sdu.edu.tr");
+        txtPassword.setText("hakan6464");
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

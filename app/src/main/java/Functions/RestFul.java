@@ -1,9 +1,20 @@
 package Functions;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.utm.miragessee.universiteticaretmerkezi.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.Object;
+import java.net.URL;
+
 import org.apache.http.HttpResponse;
 import org.json.*;
 //import org.apache.http.client.*;
@@ -19,7 +30,7 @@ import org.apache.http.util.*;
  */
 public class RestFul
 {
-    private final String restfulURL = "http://www.deathorder.com/restfulWebService/api.php";
+    private String restfulURL = "http://www.deathorder.com/restfulWebService/api.php";
 
     public String JSONRequest(JSONObject json) {
             HttpClient httpClient = new DefaultHttpClient();

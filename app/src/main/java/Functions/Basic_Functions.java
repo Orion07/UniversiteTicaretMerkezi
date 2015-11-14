@@ -19,8 +19,7 @@ public class Basic_Functions
     }
     public void MsgBox(Context ctx,String msg)
     {
-        Toast t = Toast.makeText(ctx,msg,Toast.LENGTH_LONG);
-        t.show();
+        Toast.makeText(ctx,msg,Toast.LENGTH_LONG).show();
     }
     public String getDeviceID(Context ctx)
     {

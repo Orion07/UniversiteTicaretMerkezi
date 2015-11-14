@@ -6,4 +6,7 @@
     <string name="title_activity_kayit_ol">KayitOlActivity</string>
     <string name="title_activity_ana">AnaActivity</string>
     <string name="title_activity_aktivasyon">AktivasyonActivity</string>
+    <string name="restfulURL">http://www.deathorder.com/restfulWebService/api.php</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 </resources>
