@@ -77,12 +77,14 @@ public class GirisActivity extends AppCompatActivity {
         RestFul restful = new RestFul();
         String JSONResponse = restful.JSONRequest(func);
         Login login = new Login(JSONResponse);
-        bf.MsgBox(getApplicationContext(),"Result : " + login.getResult());
         if(login.getResult() == 1)
         {
+            bf.MsgBox(getApplicationContext(),login.getMessage());
             Intent startNewActivityOpen = new Intent(GirisActivity.this, AnaActivity.class);
             startActivityForResult(startNewActivityOpen, 0);
             Log.i("Giris ", " Ana layout ");
+        } else {
+            bf.MsgBox(getApplicationContext(),login.getMessage());
         }
     }
 
