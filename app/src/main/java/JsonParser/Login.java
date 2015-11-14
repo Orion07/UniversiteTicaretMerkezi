@@ -40,13 +40,32 @@ public class Login
 
     public int islogin() { return login; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
     public String getLogin_token() {
         return login_token;
     }
 
     public int getResult() { return result; }
+
+    public String getMessage()
+    {
+        switch (result)
+        {
+            case 0:
+                return "Hatali bilgi";
+            case 1:
+                return "Giris islemi basariyla gerceklestirildi";
+            case 2:
+                return "Sorgu Hatasi";
+            case 3:
+                return "Hesap aktif edilmemis.";
+            case 4:
+                return "Sifreniz yanlis";
+            case 5:
+                return "Boyle bir hesap yok";
+
+        }
+        return "Bilinmeyen Hata[LOGIN]";
+    }
 }
