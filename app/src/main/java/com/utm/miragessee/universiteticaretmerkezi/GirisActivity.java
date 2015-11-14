@@ -21,6 +21,7 @@ public class GirisActivity extends AppCompatActivity {
 
     EditText txtEmail,txtPassword;
     Button btnLogin,btnSignup;
+    int zaa = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
