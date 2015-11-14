@@ -19,7 +19,7 @@
         >
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_top_bg"
@@ -29,7 +29,7 @@
             android:drawableLeft="@drawable/email"/>
 
         <EditText
-            android:id="@+id/etPass"
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_bottom_bg"
