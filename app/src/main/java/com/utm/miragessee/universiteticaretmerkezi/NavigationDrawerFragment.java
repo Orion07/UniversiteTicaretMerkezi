@@ -20,9 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -31,6 +35,7 @@ import android.widget.Toast;
  */
 public class NavigationDrawerFragment extends Fragment {
 
+    public List<KategoriManager> kategoriler = new ArrayList<KategoriManager>();
     /**
      * Remember the position of the selected item.
      */
@@ -99,6 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+        /*
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_1,
@@ -108,6 +114,15 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
                 }));
+        */
+        KategoriManager kategoriManager = new KategoriManager("Ev Arkadaşı");
+        KategoriManager kategoriManager2 = new KategoriManager("Kitaplar");
+        KategoriManager kategoriManager3 = new KategoriManager("Defterler");
+        kategoriler.add(kategoriManager);
+        kategoriler.add(kategoriManager2);
+        kategoriler.add(kategoriManager3);
+        ArrayAdapter<KategoriManager> adapter = new KategoriManagerListAdapter();
+        mDrawerListView.setAdapter(adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -280,6 +295,27 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+    private class KategoriManagerListAdapter extends ArrayAdapter<KategoriManager> {
+        public KategoriManagerListAdapter() {
+            super(getActivity(), R.layout.drawer_list_item, kategoriler);
+        }
+
+        @Override
+        public View getView(final int position, View view, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+            if (view == null)
+                view = getLayoutInflater(getArguments()).inflate(R.layout.drawer_list_item, null, false);
+            TextView txt = (TextView) view.findViewById(R.id.txt);
+            ImageView img = (ImageView) view.findViewById(R.id.img);
+
+            KategoriManager currentKategori = kategoriler.get(position);
+            txt.setText(currentKategori.getText());
+            img.setImageResource(R.drawable.ic_action_name);
+
+            return view;
+        }
     }
 }
 
