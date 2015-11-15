@@ -12,8 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import org.json.*;
 
+import java.util.ArrayList;
+
 import Functions.Basic_Functions;
 import Functions.RestFul;
+import JsonParser.Categories;
+import JsonParser.CategoryManager;
 import JsonParser.Login;
 
 
@@ -21,6 +25,7 @@ public class GirisActivity extends AppCompatActivity {
 
     EditText txtEmail,txtPassword;
     Button btnLogin,btnSignup;
+    public ArrayList<CategoryManager> categoriesList ;
     int zaa = 0;
     int testasdfasdf12asdf = 0;
     @Override

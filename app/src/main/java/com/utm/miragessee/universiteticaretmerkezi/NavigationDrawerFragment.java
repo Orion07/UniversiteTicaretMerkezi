@@ -25,36 +25,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Fragment used for managing interactions for and presentation of a navigation drawer.
- * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
- * design guidelines</a> for a complete explanation of the behaviors implemented here.
- */
+import Functions.RestFul;
+import JsonParser.Categories;
+import JsonParser.CategoryManager;
+
 public class NavigationDrawerFragment extends Fragment {
 
-    public List<KategoriManager> kategoriler = new ArrayList<KategoriManager>();
-    /**
-     * Remember the position of the selected item.
-     */
+    public ArrayList<CategoryManager> categoriesList ;//= new ArrayList<CategoryManager>();
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
-
-    /**
-     * Per the design guidelines, you should show the drawer on launch until the user manually
-     * expands it. This shared preference tracks this.
-     */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
-    /**
-     * A pointer to the current callbacks instance (the Activity).
-     */
     private NavigationDrawerCallbacks mCallbacks;
-
-    /**
-     * Helper component that ties the action bar to the navigation drawer.
-     */
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
@@ -71,9 +57,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Read in the flag indicating whether or not the user has demonstrated awareness of the
-        // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
@@ -81,15 +64,12 @@ public class NavigationDrawerFragment extends Fragment {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
-
-        // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
     }
 
@@ -114,14 +94,28 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
                 }));
+
+        CategoryManager kategoriManager = new CategoryManager(1,"Ev Arkadaşı",0);
+        CategoryManager kategoriManager2 = new CategoryManager(1,"Kitaplar",0);
+        CategoryManager kategoriManager3 = new CategoryManager(1,"Defterler",0);
+        categoriesList.add(kategoriManager);
+        categoriesList.add(kategoriManager2);
+        categoriesList.add(kategoriManager3);
         */
-        KategoriManager kategoriManager = new KategoriManager("Ev Arkadaşı");
-        KategoriManager kategoriManager2 = new KategoriManager("Kitaplar");
-        KategoriManager kategoriManager3 = new KategoriManager("Defterler");
-        kategoriler.add(kategoriManager);
-        kategoriler.add(kategoriManager2);
-        kategoriler.add(kategoriManager3);
-        ArrayAdapter<KategoriManager> adapter = new KategoriManagerListAdapter();
+        JSONObject params = null, func = null;
+        try {
+            params = new JSONObject();
+            func = new JSONObject();
+            func.put("method_name", "getAllCategories");
+            func.put("method_params",params);
+        } catch (JSONException ex) {
+
+        }
+        RestFul restful = new RestFul();
+        String JSONResponse = restful.JSONRequest(func);
+        Categories categories = new Categories(JSONResponse);
+        categoriesList = categories.getCategoriesList();
+        ArrayAdapter<CategoryManager> adapter = new CategoryManagerListAdapter();
         mDrawerListView.setAdapter(adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -131,27 +125,14 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    /**
-     * Users of this fragment must call this method to set up the navigation drawer interactions.
-     *
-     * @param fragmentId   The android:id of this fragment in its activity's layout.
-     * @param drawerLayout The DrawerLayout containing this fragment's UI.
-     */
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
-
-        // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the navigation drawer and the action bar app icon.
-
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),
                 mDrawerLayout,
@@ -297,9 +278,9 @@ public class NavigationDrawerFragment extends Fragment {
         void onNavigationDrawerItemSelected(int position);
     }
 
-    private class KategoriManagerListAdapter extends ArrayAdapter<KategoriManager> {
-        public KategoriManagerListAdapter() {
-            super(getActivity(), R.layout.drawer_list_item, kategoriler);
+    private class CategoryManagerListAdapter extends ArrayAdapter<CategoryManager> {
+        public CategoryManagerListAdapter() {
+            super(getActivity(), R.layout.drawer_list_item, categoriesList);
         }
 
         @Override
@@ -310,8 +291,8 @@ public class NavigationDrawerFragment extends Fragment {
             TextView txt = (TextView) view.findViewById(R.id.txt);
             ImageView img = (ImageView) view.findViewById(R.id.img);
 
-            KategoriManager currentKategori = kategoriler.get(position);
-            txt.setText(currentKategori.getText());
+            CategoryManager currentKategori = categoriesList.get(position);
+            txt.setText(currentKategori.getCateName());
             img.setImageResource(R.drawable.ic_action_name);
 
             return view;
