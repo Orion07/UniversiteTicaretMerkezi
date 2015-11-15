@@ -22,7 +22,7 @@
             android:textColor="#1d1d1d"
             android:text="İNANLAR İNŞAAT TERRACE MİX SATIŞ OFİSİNDEN 1+0 KİRALIK DAİRE" />
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:paddingRight="10dp"
                 android:paddingTop="20dp"
                 android:layout_alignParentBottom="true"
@@ -54,6 +54,8 @@
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:text="₺650"
+                android:layout_toRightOf="@+id/txt"
+                android:layout_toEndOf="@+id/txt"
                 android:layout_gravity="right" />
             </LinearLayout>
         </LinearLayout>
