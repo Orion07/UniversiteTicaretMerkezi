@@ -19,15 +19,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AnaActivity"
-            android:label="@string/title_activity_ana" >
-        </activity>
-        <activity
             android:name=".KayitOlActivity"
             android:label="@string/title_activity_kayit_ol" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".KayitOlActivity" />
+        </activity>
+        <activity
+            android:name=".AnaActivity"
+            android:label="@string/title_activity_ana" >
         </activity>
     </application>
 
