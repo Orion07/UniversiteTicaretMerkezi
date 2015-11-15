@@ -22,6 +22,7 @@ public class GirisActivity extends AppCompatActivity {
     EditText txtEmail,txtPassword;
     Button btnLogin,btnSignup;
     int zaa = 0;
+    int testasdfasdf12asdf = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,9 +84,10 @@ public class GirisActivity extends AppCompatActivity {
         if(login.getResult() == 1)
         {
             bf.MsgBox(getApplicationContext(),login.getMessage());
-            Intent startNewActivityOpen = new Intent(GirisActivity.this, AnaActivity.class);
-            startActivityForResult(startNewActivityOpen, 0);
+            Intent mainActivity = new Intent(GirisActivity.this, AnaActivity.class);
+            startActivity(mainActivity);
             Log.i("Giris ", " Ana layout ");
+            this.finish();
         } else {
             bf.MsgBox(getApplicationContext(),login.getMessage());
         }

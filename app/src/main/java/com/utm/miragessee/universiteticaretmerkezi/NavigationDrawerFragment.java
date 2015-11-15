@@ -1,10 +1,11 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
+//import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
@@ -135,13 +136,13 @@ public class NavigationDrawerFragment extends Fragment {
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
+
         mDrawerToggle = new ActionBarDrawerToggle(
-                getActivity(),                    /* host Activity */
-                mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
-                R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
-                R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
-        ) {
+                getActivity(),
+                mDrawerLayout,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        ){
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -281,3 +282,12 @@ public class NavigationDrawerFragment extends Fragment {
         void onNavigationDrawerItemSelected(int position);
     }
 }
+
+
+      /* mDrawerToggle = new ActionBarDrawerToggle(
+                getActivity(),
+mDrawerLayout,
+        R.drawable.ic_drawer,
+        R.string.navigation_drawer_open,
+        R.string.navigation_drawer_close
+        )*/

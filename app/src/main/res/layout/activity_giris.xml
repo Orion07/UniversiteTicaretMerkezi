@@ -43,7 +43,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giriş"
+            android:text="Giris"
             android:id="@+id/btnLogin"
             style="@style/DefaultButtonText"
             android:background="@drawable/button_default_bg"/>
