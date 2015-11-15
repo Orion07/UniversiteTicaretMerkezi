@@ -8,14 +8,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
+import java.util.ArrayList;
+
 import JsonParser.CategoryManager;
+import JsonParser.ElemanlarManager;
 
 public class ShowListFragment extends Fragment {
+
+    public ArrayList<ElemanlarManager> elemanlarList = new ArrayList<ElemanlarManager>();
+    private ListView listView2;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -51,20 +61,18 @@ public class ShowListFragment extends Fragment {
             //Log.i("Category : ",cat.getCateName());
         }
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_showlist, container, false);
-        Button btn = (Button)view.findViewById(R.id.button);
-        txt = (TextView)view.findViewById(R.id.textView);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txt.setText(String.valueOf("settext testt"));
-            }
-        });
+
+        listView2 = (ListView) view.findViewById(R.id.listView2);
+        ElemanlarManager elemanlarManager = new ElemanlarManager("resim","baslik","konum","fiyat");
+        elemanlarList.add(elemanlarManager);
+        ArrayAdapter<ElemanlarManager> adapter = new ElemanlarManagerListAdapter();
+        listView2.setAdapter(adapter);
+
         return view;
     }
 
@@ -96,4 +104,24 @@ public class ShowListFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    private class ElemanlarManagerListAdapter extends ArrayAdapter<ElemanlarManager> {
+        public ElemanlarManagerListAdapter() {
+            super(getActivity(), R.layout.list_single, elemanlarList);
+        }
+
+        @Override
+        public View getView(final int position, View view, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+            if (view == null)
+                view = getLayoutInflater(getArguments()).inflate(R.layout.list_single, null, false);
+            //TextView txt = (TextView) view.findViewById(R.id.txt);
+            //ImageView img = (ImageView) view.findViewById(R.id.img);
+
+            //ElemanlarManager currentKategori = elemanlarList.get(position);
+            //txt.setText(currentKategori.getCateName());
+            //img.setImageResource(R.drawable.ic_action_name);
+
+            return view;
+        }
+    }
 }
