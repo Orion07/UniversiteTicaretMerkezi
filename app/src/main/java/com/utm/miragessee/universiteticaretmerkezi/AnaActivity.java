@@ -3,11 +3,9 @@ package com.utm.miragessee.universiteticaretmerkezi;
 import android.app.Activity;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.app.Activity.*;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,11 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import Fragments.RoomMateFragment;
+import Fragments.ShowListFragment;
 
 
 public class AnaActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, RoomMateFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ShowListFragment.OnFragmentInteractionListener {
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
@@ -49,12 +47,12 @@ public class AnaActivity extends AppCompatActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, RoomMateFragment.newInstance("a","b"))
+                .replace(R.id.container, ShowListFragment.newInstance("",""))
                 .commit();
         //PlaceholderFragment
        /* if(position == 1)
         {
-            //RoomMateFragment test = new RoomMateFragment();
+            //ShowListFragment test = new ShowListFragment();
 
         }*/
         //Log.i("Position : ", String.valueOf(position));
@@ -107,8 +105,11 @@ public class AnaActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+}
 
-    public static class PlaceholderFragment extends Fragment {
+
+
+    /*public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -128,7 +129,7 @@ public class AnaActivity extends AppCompatActivity
                                  Bundle savedInstanceState) {
             int ARG_NUMBER = getArguments().getInt(ARG_SECTION_NUMBER, 0);
             Log.i("ARG NUMBER : ", String.valueOf(ARG_NUMBER));
-            View rootView = inflater.inflate(R.layout.fragment_room_mate, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_showlist, container, false);
             //TextView txtTitle = (TextView) rootView.findViewById(R.id.section_label);
             //txtTitle.setText("sadadsa");
             return rootView;
@@ -140,5 +141,4 @@ public class AnaActivity extends AppCompatActivity
             ((AnaActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
-    }
-}
+    }*/

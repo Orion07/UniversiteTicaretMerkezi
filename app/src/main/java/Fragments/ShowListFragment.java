@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.utm.miragessee.universiteticaretmerkezi.AnaActivity;
 import com.utm.miragessee.universiteticaretmerkezi.R;
-public class RoomMateFragment extends Fragment {
+
+import JsonParser.CategoryManager;
+
+public class ShowListFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -21,9 +23,11 @@ public class RoomMateFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     TextView txt;
+    public static CategoryManager cat;
     private OnFragmentInteractionListener mListener;
-    public static RoomMateFragment newInstance(String param1, String param2) {
-        RoomMateFragment fragment = new RoomMateFragment();
+
+    public static ShowListFragment newInstance(String param1, String param2) {
+        ShowListFragment fragment = new ShowListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -31,7 +35,7 @@ public class RoomMateFragment extends Fragment {
         return fragment;
     }
 
-    public RoomMateFragment() {
+    public ShowListFragment() {
     }
 
     @Override
@@ -40,19 +44,19 @@ public class RoomMateFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            Log.i("Param1 : ",mParam1);
-            Log.i("Param2 : ", mParam2);
-            AnaActivity aa = (AnaActivity) getActivity();
-            Log.i("Test : " ,aa.getTest());
+            //Log.i("Param1 : ",mParam1);
+            //Log.i("Param2 : ", mParam2);
+            //AnaActivity aa = (AnaActivity) getActivity();
+            //Log.i("Test : " ,aa.getTest());
+            //Log.i("Category : ",cat.getCateName());
         }
 
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_room_mate, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_showlist, container, false);
         Button btn = (Button)view.findViewById(R.id.button);
         txt = (TextView)view.findViewById(R.id.textView);
         btn.setOnClickListener(new View.OnClickListener() {

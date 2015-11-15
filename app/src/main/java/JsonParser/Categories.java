@@ -26,9 +26,6 @@ public class Categories
                     for(int i = 0;i<arrayLength;i++)
                     {
                         JSONObject obj = jsonArray.getJSONObject(i);
-                        /*System.out.println("ID :"+ obj.getInt("id"));
-                        System.out.println("Name : "+ obj.getString("name"));
-                        System.out.println("Parent ID :"+ obj.getInt("parent_id"));*/
                         CategoryManager manager = new CategoryManager(obj.getInt("id"),obj.getString("name"),obj.getInt("parent_id"));
                         categoriesList.add(manager);
                     }
