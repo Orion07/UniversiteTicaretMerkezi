@@ -30,7 +30,7 @@ import org.apache.http.util.*;
  */
 public class RestFul
 {
-    private String restfulURL = "http://www.deathorder.com/restfulWebService/api.php";
+    public static String restfulURL = "";
 
     public String JSONRequest(JSONObject json) {
             HttpClient httpClient = new DefaultHttpClient();

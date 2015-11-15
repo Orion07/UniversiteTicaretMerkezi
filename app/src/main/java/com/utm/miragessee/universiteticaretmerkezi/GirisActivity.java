@@ -30,6 +30,7 @@ public class GirisActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+        RestFul.restfulURL = getString(R.string.restfulURL);
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtEmail.setText("l1211016020@stud.sdu.edu.tr");
