@@ -140,8 +140,8 @@ public class AnaActivity extends AppCompatActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_ana, container, false);
-            TextView txtTitle = (TextView) rootView.findViewById(R.id.section_label);
-            txtTitle.setText("sadadsa");
+            //TextView txtTitle = (TextView) rootView.findViewById(R.id.section_label);
+            //txtTitle.setText("sadadsa");
             return rootView;
         }
 
