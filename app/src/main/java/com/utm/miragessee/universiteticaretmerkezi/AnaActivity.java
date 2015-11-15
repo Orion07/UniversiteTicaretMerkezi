@@ -1,39 +1,34 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.net.Uri;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
+import android.app.Activity.*;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import Fragments.RoomMateFragment;
 
 
 public class AnaActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, RoomMateFragment.OnFragmentInteractionListener {
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
+    public String getTest() {
+        return test;
+    }
+
+    public String test = "testtttt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +49,17 @@ public class AnaActivity extends AppCompatActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, RoomMateFragment.newInstance("a","b"))
                 .commit();
-        /*if(position == 1)
+        //PlaceholderFragment
+       /* if(position == 1)
         {
             //RoomMateFragment test = new RoomMateFragment();
 
         }*/
-        Log.i("Position : ",String.valueOf(position));
+        //Log.i("Position : ", String.valueOf(position));
+       // FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+
     }
 
     public void onSectionAttached(int number) {
@@ -104,8 +102,15 @@ public class AnaActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
+
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -114,13 +119,16 @@ public class AnaActivity extends AppCompatActivity
             return fragment;
         }
 
-        public PlaceholderFragment() {
+        public PlaceholderFragment()
+        {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_ana, container, false);
+            int ARG_NUMBER = getArguments().getInt(ARG_SECTION_NUMBER, 0);
+            Log.i("ARG NUMBER : ", String.valueOf(ARG_NUMBER));
+            View rootView = inflater.inflate(R.layout.fragment_room_mate, container, false);
             //TextView txtTitle = (TextView) rootView.findViewById(R.id.section_label);
             //txtTitle.setText("sadadsa");
             return rootView;
