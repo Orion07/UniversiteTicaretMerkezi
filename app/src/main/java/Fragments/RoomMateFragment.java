@@ -58,7 +58,7 @@ public class RoomMateFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txt.setText(String.valueOf("settext test"));
+                txt.setText(String.valueOf("settext testt"));
             }
         });
         return view;
