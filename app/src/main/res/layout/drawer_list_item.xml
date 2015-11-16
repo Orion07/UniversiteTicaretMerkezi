@@ -4,7 +4,6 @@
     android:layout_height="match_parent" >
 
     <TableRow>
-
         <ImageView
             android:id="@+id/img"
             android:layout_width="50dp"
@@ -15,7 +14,12 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:textColor="#eff4ff"/>
-
     </TableRow>
+        <View
+            android:id="@+id/view1"
+            android:background="#ffcccccc"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
 
 </TableLayout>
