@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,11 +17,11 @@ import com.utm.miragessee.universiteticaretmerkezi.R;
 import java.util.ArrayList;
 
 import JsonParser.CategoryManager;
-import JsonParser.ElemanlarManager;
+import JsonParser.ElementManager;
 
 public class ShowListFragment extends Fragment {
 
-    public ArrayList<ElemanlarManager> elemanlarList = new ArrayList<ElemanlarManager>();
+    public ArrayList<ElementManager> elementsList = new ArrayList<ElementManager>();
     private ListView listView2;
 
     private static final String ARG_PARAM1 = "param1";
@@ -68,9 +66,10 @@ public class ShowListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_showlist, container, false);
 
         listView2 = (ListView) view.findViewById(R.id.listView2);
-        ElemanlarManager elemanlarManager = new ElemanlarManager("resim","baslik","konum","fiyat");
-        elemanlarList.add(elemanlarManager);
-        ArrayAdapter<ElemanlarManager> adapter = new ElemanlarManagerListAdapter();
+        elementsList.add(new ElementManager("resim","test","antalya","100"));
+        elementsList.add(new ElementManager("resim","test2","istanbul","200"));
+        elementsList.add(new ElementManager("resim","test3","izmir","300"));
+        ArrayAdapter<ElementManager> adapter = new ElemanlarManagerListAdapter();
         listView2.setAdapter(adapter);
 
         return view;
@@ -104,23 +103,25 @@ public class ShowListFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private class ElemanlarManagerListAdapter extends ArrayAdapter<ElemanlarManager> {
+    private class ElemanlarManagerListAdapter extends ArrayAdapter<ElementManager> {
         public ElemanlarManagerListAdapter() {
-            super(getActivity(), R.layout.list_single, elemanlarList);
+            super(getActivity(), R.layout.list_single, elementsList);
         }
 
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
-            //return super.getView(position, convertView, parent);
             if (view == null)
                 view = getLayoutInflater(getArguments()).inflate(R.layout.list_single, null, false);
-            //TextView txt = (TextView) view.findViewById(R.id.txt);
-            //ImageView img = (ImageView) view.findViewById(R.id.img);
 
-            //ElemanlarManager currentKategori = elemanlarList.get(position);
-            //txt.setText(currentKategori.getCateName());
-            //img.setImageResource(R.drawable.ic_action_name);
-
+            ElementManager currentElement = elementsList.get(position);
+            TextView section = (TextView) view.findViewById(R.id.section);
+            TextView location = (TextView) view.findViewById(R.id.location);
+            TextView price = (TextView) view.findViewById(R.id.price);
+            section.setText(currentElement.getBaslik());
+            location.setText(currentElement.getKonum());
+            price.setText(currentElement.getFiyat());
+            ImageView img = (ImageView) view.findViewById(R.id.img);
+            img.setImageResource(R.drawable.ev);
             return view;
         }
     }

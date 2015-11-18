@@ -7,19 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.provider.Settings.Secure;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Functions.Basic_Functions;
+import Functions.Basic;
 import Functions.RestFul;
 import JsonParser.Signup;
 
@@ -58,7 +55,6 @@ public class KayitOlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onSignupProcess();
-                //Log.i("Password : ",String.valueOf(txtPassword.getText().toString().equals(txtRePassword.getText().toString())));
             }
         });
     }
@@ -77,7 +73,7 @@ public class KayitOlActivity extends AppCompatActivity {
     }
     public void onSignupProcess()
     {
-        Basic_Functions bf = new Basic_Functions();
+        Basic bf = new Basic();
         if(!bf.checkEmail(txtEmail.getText().toString()))
         {
             bf.MsgBox(getApplicationContext(),"Email Gecersiz.Lutfen edu.tr uzantili Email giriniz...");
@@ -138,21 +134,3 @@ public class KayitOlActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-
-/*
-                final ProgressDialog progressDialog = new ProgressDialog(KayitOlActivity.this,
-                        R.style.Base_ThemeOverlay_AppCompat_Dark);
-                progressDialog.setIndeterminate(true);
-                progressDialog.setMessage("Authenticating...");
-                progressDialog.show();
-
-                                new android.os.Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                // On complete call either onLoginSuccess or onLoginFailed
-                                //onLoginSuccess();
-                                // onLoginFailed();
-                                progressDialog.dismiss();
-                            }
-                        }, 3000);
- */

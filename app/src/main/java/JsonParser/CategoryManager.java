@@ -6,12 +6,12 @@ package JsonParser;
 public class CategoryManager {
     public int cateID;
     public String cateName;
-    public int parentID;
+    public int iconID;
 
-    public CategoryManager(int cateID, String cateName, int parentID) {
+    public CategoryManager(int cateID, String cateName, int iconID) {
         this.cateID = cateID;
         this.cateName = cateName;
-        this.parentID = parentID;
+        this.iconID = iconID;
     }
     public int getCateID() {
         return cateID;
@@ -29,12 +29,12 @@ public class CategoryManager {
         this.cateName = cateName;
     }
 
-    public int getParentID() {
-        return parentID;
+    public int getIconID() {
+        return iconID;
     }
 
-    public void setParentID(int parentID) {
-        this.parentID = parentID;
+    public void setIconID(int iconID) {
+        this.iconID = iconID;
     }
 
 

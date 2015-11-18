@@ -3,10 +3,10 @@ package JsonParser;
 /**
  * Created by Hakan on 15.11.2015.
  */
-public class ElemanlarManager {
+public class ElementManager {
     private String resim,baslik,konum,fiyat;
 
-    public ElemanlarManager(String resim, String baslik, String konum, String fiyat) {
+    public ElementManager(String resim, String baslik, String konum, String fiyat) {
         this.resim = resim;
         this.baslik = baslik;
         this.konum = konum;

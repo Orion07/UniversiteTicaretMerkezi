@@ -14,9 +14,8 @@ import org.json.*;
 
 import java.util.ArrayList;
 
-import Functions.Basic_Functions;
+import Functions.Basic;
 import Functions.RestFul;
-import JsonParser.Categories;
 import JsonParser.CategoryManager;
 import JsonParser.Login;
 
@@ -60,7 +59,7 @@ public class GirisActivity extends AppCompatActivity {
     }
     public void onLoginProcess()
     {
-        Basic_Functions bf = new Basic_Functions();
+        Basic bf = new Basic();
         if(!bf.checkEmail(txtEmail.getText().toString()))
         {
             bf.MsgBox(getApplicationContext(),"Email Gecersiz.Lutfen edu.tr uzantili Email giriniz...");
@@ -88,10 +87,12 @@ public class GirisActivity extends AppCompatActivity {
         Login login = new Login(JSONResponse);
         if(login.getResult() == 1)
         {
-            bf.MsgBox(getApplicationContext(),login.getMessage());
+            bf.MsgBox(getApplicationContext(), login.getMessage());
             Intent mainActivity = new Intent(GirisActivity.this, AnaActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("email",login.getEmail());
+            mainActivity.putExtras(bundle);
             startActivity(mainActivity);
-            Log.i("Giris ", " Ana layout ");
             this.finish();
         } else {
             bf.MsgBox(getApplicationContext(),login.getMessage());
@@ -107,12 +108,7 @@ public class GirisActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -120,26 +116,3 @@ public class GirisActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-
-/*
-SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-                request.addProperty("sayi", editText.getText().toString());
-
-                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-                envelope.dotNet = true;
-                envelope.setOutputSoapObject(request);
-
-                HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-                androidHttpTransport.debug = true;
-
-                try
-                {
-                    androidHttpTransport.call(SOAP_ACTION, envelope);
-                    SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
-                    editText2.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    editText2.setText(response.toString());
-                }catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-
- */

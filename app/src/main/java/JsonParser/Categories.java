@@ -5,7 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import Functions.Basic;
 
 /**
  * Created by Orion on 15.11.2015.
@@ -13,11 +16,26 @@ import java.util.List;
 public class Categories
 {
     public ArrayList<CategoryManager> categoriesList = new ArrayList<CategoryManager>();
-    public  Categories(String JSONResponse)
+    public  Categories()
     {
+        Basic basic = new Basic();
+        HashMap<Integer, CategoryManager> categoryMap = basic.getCategoryMap();
+        /*for (HashMap.Entry<Integer, CategoryManager> entry : categoryMap.entrySet()) {
+            categoriesList.add(entry.getValue());
+        }*/
+        for(int i = 1;i<=categoryMap.size();i++)
+        {
+            categoriesList.add(categoryMap.get(i));
+        }
 
+    }
+    public ArrayList<CategoryManager> getCategoriesList() {
+        return categoriesList;
+    }
+}
 
-            try {
+/*
+ try {
                 JSONObject jsonResponse = new JSONObject(JSONResponse);
                 JSONArray jsonArray = jsonResponse.getJSONArray("getAllCategories");
                 int arrayLength = jsonArray.length();
@@ -34,11 +52,4 @@ public class Categories
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
-    }
-    public ArrayList<CategoryManager> getCategoriesList() {
-        return categoriesList;
-    }
-}
+ */

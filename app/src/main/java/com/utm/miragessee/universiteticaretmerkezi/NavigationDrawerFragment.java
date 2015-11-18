@@ -35,7 +35,6 @@ import java.util.List;
 import Functions.RestFul;
 import JsonParser.Categories;
 import JsonParser.CategoryManager;
-
 public class NavigationDrawerFragment extends Fragment {
 
     public ArrayList<CategoryManager> categoriesList ;//= new ArrayList<CategoryManager>();
@@ -51,6 +50,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    private boolean drawerLoad = false;
 
     public NavigationDrawerFragment() {
     }
@@ -78,49 +78,24 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
+                R.layout.fragment_navigation_drawer, container, false);//fragment_navigation_drawer
+        mDrawerListView.addHeaderView(inflater.inflate(R.layout.navigation_drawer_myaccount, container, false));
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
-        /*
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
-
-        CategoryManager kategoriManager = new CategoryManager(1,"Ev Arkadaşı",0);
-        CategoryManager kategoriManager2 = new CategoryManager(1,"Kitaplar",0);
-        CategoryManager kategoriManager3 = new CategoryManager(1,"Defterler",0);
-        categoriesList.add(kategoriManager);
-        categoriesList.add(kategoriManager2);
-        categoriesList.add(kategoriManager3);
-        */
-        JSONObject params = null, func = null;
-        try {
-            params = new JSONObject();
-            func = new JSONObject();
-            func.put("method_name", "getAllCategories");
-            func.put("method_params",params);
-        } catch (JSONException ex) {
-
-        }
-        RestFul restful = new RestFul();
-        String JSONResponse = restful.JSONRequest(func);
-        Categories categories = new Categories(JSONResponse);
+        Categories categories = new Categories();
         categoriesList = categories.getCategoriesList();
         ArrayAdapter<CategoryManager> adapter = new CategoryManagerListAdapter();
         mDrawerListView.setAdapter(adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        drawerLoad = true;
         return mDrawerListView;
     }
+
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
@@ -198,6 +173,7 @@ public class NavigationDrawerFragment extends Fragment {
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
+
     }
 
     @Override
@@ -235,7 +211,7 @@ public class NavigationDrawerFragment extends Fragment {
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
             inflater.inflate(R.menu.global, menu);
-            showGlobalContextActionBar();
+            //showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -246,18 +222,13 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.ilanekle) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Per the navigation drawer design guidelines, updates the action bar to show the global app
-     * 'context', rather than just what's in the current screen.
-     */
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
@@ -268,14 +239,7 @@ public class NavigationDrawerFragment extends Fragment {
     private ActionBar getActionBar() {
         return ((AppCompatActivity) getActivity()).getSupportActionBar();
     }
-
-    /**
-     * Callbacks interface that all activities using this fragment must implement.
-     */
     public static interface NavigationDrawerCallbacks {
-        /**
-         * Called when an item in the navigation drawer is selected.
-         */
         void onNavigationDrawerItemSelected(int position);
     }
 
@@ -286,15 +250,16 @@ public class NavigationDrawerFragment extends Fragment {
 
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
-            //return super.getView(position, convertView, parent);
             if (view == null)
                 view = getLayoutInflater(getArguments()).inflate(R.layout.drawer_list_item, null, false);
+            CategoryManager currentCategory = categoriesList.get(position);
+            view.setTag(currentCategory);
             TextView txt = (TextView) view.findViewById(R.id.txt);
             ImageView img = (ImageView) view.findViewById(R.id.img);
 
-            CategoryManager currentKategori = categoriesList.get(position);
-            txt.setText(currentKategori.getCateName());
-            img.setImageResource(R.drawable.ic_action_name);
+
+            txt.setText(currentCategory.getCateName());
+            img.setImageResource(currentCategory.getIconID());//R.drawable.ic_action_name
 
             return view;
         }

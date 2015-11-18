@@ -14,7 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
 import Fragments.ShowListFragment;
+import Functions.Basic;
+import JsonParser.Categories;
+import JsonParser.CategoryManager;
 
 
 public class AnaActivity extends AppCompatActivity
@@ -22,11 +31,7 @@ public class AnaActivity extends AppCompatActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
-    public String getTest() {
-        return test;
-    }
 
-    public String test = "testtttt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,57 +41,47 @@ public class AnaActivity extends AppCompatActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
+
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        /*Bundle b = getIntent().getExtras();
+        String value = b.getString("email");
+
+        TextView email = (TextView)findViewById(R.id.txtMyEmail);
+        email.setText(value);*/
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ShowListFragment.newInstance("",""))
+                .replace(R.id.container, ShowListFragment.newInstance("", ""))
                 .commit();
-        //PlaceholderFragment
-       /* if(position == 1)
-        {
-            //ShowListFragment test = new ShowListFragment();
-
-        }*/
-        //Log.i("Position : ", String.valueOf(position));
-       // FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
+        if(position == 0) {
+            //profile activity
+        }
+        else {
+            Categories c = new Categories();
+            ArrayList<CategoryManager> manager = c.getCategoriesList();
+            CategoryManager catManager = manager.get(position - 1);
+            if(catManager != null)
+                setFragmenTitle(catManager.getCateName());
         }
     }
-
-    public void restoreActionBar() {
+    public void setFragmenTitle(String title) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
-    }
+        actionBar.setTitle(title);
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.ana, menu);
-            restoreActionBar();
             return true;
         }
         return super.onCreateOptionsMenu(menu);
@@ -94,9 +89,19 @@ public class AnaActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Basic b = new Basic();
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.search) {
             return true;
+        }*/
+        switch (id)
+        {
+            case R.id.search:
+                b.MsgBox(getApplicationContext(),"ara basildi");
+                return true;
+            case R.id.ilanekle:
+                b.MsgBox(getApplicationContext(),"ilan ekle basildi");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -106,39 +111,3 @@ public class AnaActivity extends AppCompatActivity
 
     }
 }
-
-
-
-    /*public static class PlaceholderFragment extends Fragment {
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment()
-        {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            int ARG_NUMBER = getArguments().getInt(ARG_SECTION_NUMBER, 0);
-            Log.i("ARG NUMBER : ", String.valueOf(ARG_NUMBER));
-            View rootView = inflater.inflate(R.layout.fragment_showlist, container, false);
-            //TextView txtTitle = (TextView) rootView.findViewById(R.id.section_label);
-            //txtTitle.setText("sadadsa");
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((AnaActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }*/

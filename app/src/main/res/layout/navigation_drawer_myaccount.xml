@@ -20,23 +20,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
-            <TextView
-                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-                android:textStyle="bold"
-                android:textColor="#eff4ff"
-                android:gravity="bottom|left|center"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="BANA ÖZEL" />
+
             <TextView
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#eff4ff"
                 android:ellipsize="none"
                 android:gravity="top|left|center"
-                android:id="@+id/text"
+                android:id="@+id/txtMyEmail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="ugur.ozmen@gmail.com"
+                android:text="Profilim"
                 android:maxLines="1" />
         </LinearLayout>
         <ImageView

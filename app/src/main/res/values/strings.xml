@@ -1,23 +1,16 @@
 <resources>
     <string name="app_name">Universite Ticaret Merkezi</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_kayit_ol">KayitOlActivity</string>
-    <string name="title_activity_ana">AnaActivity</string>
-    <string name="title_activity_aktivasyon">AktivasyonActivity</string>
+    <string name="title_activity_kayit_ol">Kayit Ol</string>
+    <string name="title_activity_ana">Ana Sayfa</string>
     <string name="restfulURL">http://www.deathorder.com/restfulWebService/api.php</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_example">Example action</string>
+    <string name="action_example">Ilan ekle bolumu</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
