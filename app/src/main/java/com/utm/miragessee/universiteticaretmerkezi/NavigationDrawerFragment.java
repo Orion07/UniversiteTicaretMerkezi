@@ -85,13 +85,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
-                TextView profil = (TextView) view.findViewById(R.id.textView);
-                profil.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i("Profil", "profile tıkladın");
-                    }
-                });
             }
         });
 
@@ -262,6 +255,7 @@ public class NavigationDrawerFragment extends Fragment {
             CategoryManager currentCategory = categoriesList.get(position);
             view.setTag(currentCategory);
             TextView txt = (TextView) view.findViewById(R.id.txt);
+            TextView profil = (TextView) view.findViewById(R.id.textView);
             ImageView img = (ImageView) view.findViewById(R.id.img);
 
 
