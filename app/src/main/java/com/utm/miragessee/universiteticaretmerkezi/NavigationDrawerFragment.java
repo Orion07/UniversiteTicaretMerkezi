@@ -1,5 +1,6 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.app.Activity;
@@ -13,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +38,6 @@ import Functions.RestFul;
 import JsonParser.Categories;
 import JsonParser.CategoryManager;
 public class NavigationDrawerFragment extends Fragment {
-
     public ArrayList<CategoryManager> categoriesList ;//= new ArrayList<CategoryManager>();
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
@@ -84,8 +85,16 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
+                TextView profil = (TextView) view.findViewById(R.id.textView);
+                profil.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("Profil", "profile tıkladın");
+                    }
+                });
             }
         });
+
         Categories categories = new Categories();
         categoriesList = categories.getCategoriesList();
         ArrayAdapter<CategoryManager> adapter = new CategoryManagerListAdapter();
