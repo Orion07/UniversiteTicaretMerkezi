@@ -56,6 +56,7 @@ public class AnaActivity extends AppCompatActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        Log.i("List Index : ", String.valueOf(position));
         if(position == 0) {
             //profile activity
         }

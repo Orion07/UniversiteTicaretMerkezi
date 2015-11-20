@@ -13,7 +13,7 @@ public class Login
     private int login;
     private String email;
     private String login_token;
-    private int result;
+    private int result = -1;
 
     public Login(String jsonStr)
     {
@@ -52,6 +52,8 @@ public class Login
     {
         switch (result)
         {
+            case -1:
+                return "Internet baglantisi yok";
             case 0:
                 return "Hatali bilgi";
             case 1:
