@@ -53,7 +53,7 @@ public class Login
         switch (result)
         {
             case 0:
-                return "Hatali bilgi";
+                return "Hatali bilgi yada internet yok";
             case 1:
                 return "Giris islemi basariyla gerceklestirildi";
             case 2:
