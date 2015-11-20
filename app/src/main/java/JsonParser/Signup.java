@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * Created by Orion on 11.11.2015.
  */
 public class Signup {
-    private int result;
+    private int result = -1;
     public Signup(String jsonStr)
     {
         try{
@@ -30,6 +30,8 @@ public class Signup {
     {
         switch (result)
         {
+            case -1:
+                return "Internet baglantisi yok";
             case 0:
                 return "Hatali bilgi";
             case 1:
