@@ -24,6 +24,7 @@ import Fragments.ShowListFragment;
 import Functions.Basic;
 import JsonParser.Categories;
 import JsonParser.CategoryManager;
+import JsonParser.Elements;
 
 
 public class AnaActivity extends AppCompatActivity
@@ -55,14 +56,16 @@ public class AnaActivity extends AppCompatActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, ShowListFragment.newInstance("", ""))
-                .commit();
         if(position == 0) {
             //profile activity
         }
         else {
+            Elements e = new Elements(position);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ShowListFragment.newInstance(e.getElementsList()))
+                    .commit();
+
             Categories c = new Categories();
             ArrayList<CategoryManager> manager = c.getCategoriesList();
             CategoryManager catManager = manager.get(position - 1);

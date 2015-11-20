@@ -51,7 +51,7 @@ public class Basic
         map.put(4,new CategoryManager(4,"Ozel Ders Verenler",R.drawable.study));//study
         map.put(5,new CategoryManager(5,"Is ilanlari", R.drawable.suitcase));//suitcase
         map.put(6,new CategoryManager(6,"Spor",R.drawable.sport));//sport
-        map.put(7,new CategoryManager(7,"Diger",R.drawable.test));//android
+        map.put(7,new CategoryManager(7,"Diger",R.drawable.ic_action_name));//android
         return map;
     }
     public HashMap<Integer,Integer> getSubCategoryMap()

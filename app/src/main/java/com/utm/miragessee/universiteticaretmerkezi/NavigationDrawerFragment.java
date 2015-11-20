@@ -50,7 +50,6 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
-    private boolean drawerLoad = false;
 
     public NavigationDrawerFragment() {
     }
@@ -79,7 +78,7 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);//fragment_navigation_drawer
-        mDrawerListView.addHeaderView(inflater.inflate(R.layout.navigation_drawer_myaccount, container, false));
+        mDrawerListView.addHeaderView(inflater.inflate(R.layout.test, container, false));
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -92,7 +91,6 @@ public class NavigationDrawerFragment extends Fragment {
         ArrayAdapter<CategoryManager> adapter = new CategoryManagerListAdapter();
         mDrawerListView.setAdapter(adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        drawerLoad = true;
         return mDrawerListView;
     }
 

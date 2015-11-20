@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import JsonParser.ElementManager;
 
 public class ShowListFragment extends Fragment {
 
-    public ArrayList<ElementManager> elementsList = new ArrayList<ElementManager>();
+    public static ArrayList<ElementManager> elementsList = new ArrayList<ElementManager>();
     private ListView listView2;
 
     private static final String ARG_PARAM1 = "param1";
@@ -34,16 +35,18 @@ public class ShowListFragment extends Fragment {
     public static CategoryManager cat;
     private OnFragmentInteractionListener mListener;
 
-    public static ShowListFragment newInstance(String param1, String param2) {
-        ShowListFragment fragment = new ShowListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+    public static ShowListFragment newInstance(ArrayList<ElementManager> list) {
+        ShowListFragment fragment = new ShowListFragment(list);
+        //Bundle args = new Bundle();
+        //fragment.setArguments(args);
+
         return fragment;
     }
 
-    public ShowListFragment() {
+    public ShowListFragment(ArrayList<ElementManager> list)
+    {
+        elementsList = list;
+        Log.i("Fragmen Log","ben geldim");
     }
 
     @Override
@@ -66,9 +69,9 @@ public class ShowListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_showlist, container, false);
 
         listView2 = (ListView) view.findViewById(R.id.listView2);
-        elementsList.add(new ElementManager("resim","test","antalya","100"));
+        /*elementsList.add(new ElementManager("resim","test","antalya","100"));
         elementsList.add(new ElementManager("resim","test2","istanbul","200"));
-        elementsList.add(new ElementManager("resim","test3","izmir","300"));
+        elementsList.add(new ElementManager("resim","test3","izmir","300"));*/
         ArrayAdapter<ElementManager> adapter = new ElemanlarManagerListAdapter();
         listView2.setAdapter(adapter);
 

@@ -1,5 +1,7 @@
 package JsonParser;
 
+import android.os.Parcel;
+
 /**
  * Created by Hakan on 15.11.2015.
  */
@@ -44,4 +46,5 @@ public class ElementManager {
     public void setKonum(String konum) {
         this.konum = konum;
     }
+
 }

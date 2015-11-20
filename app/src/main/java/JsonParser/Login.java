@@ -30,7 +30,7 @@ public class Login
 
             }else
             {
-                Log.i("JSON LOGIN : ","qnq json yoq");
+                Log.i("JSON LOGIN : ","Login basarisiz oldu.");
             }
         } catch (JSONException e) {
             e.printStackTrace();
