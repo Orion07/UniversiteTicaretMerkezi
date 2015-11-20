@@ -1,1 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:paddingLeft="16.0dip"
+        android:paddingTop="10.0dip"
+        android:paddingRight="16.0dip"
+        android:layout_width="fill_parent"
+        android:layout_height="83dp"
+        android:background="@drawable/nav_drawer_header">
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0" >
+
+            <TextView
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#eff4ff"
+                android:ellipsize="none"
+                android:gravity="top|left|center"
+                android:id="@+id/textView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Profilim"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/base_drawer_message"
+            android:scaleType="center" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:src="@drawable/base_drawer_message_bell"
+            android:scaleType="center" />
+
+    </LinearLayout>
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow>
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_action_name"/>
+
+
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0" >
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:ellipsize="none"
+                    android:gravity="top|left|center"
+                    android:id="@+id/textViewsss"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kategoriler"
+                    android:maxLines="1"
+                    android:textColor="@color/bright_foreground_material_light"/>
+            </LinearLayout>
+
+        </TableRow>
+        <View
+            android:id="@+id/view21"
+            android:background="#ffcccccc"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:textColor="@color/abc_primary_text_disable_only_material_light"/>
+    </TableLayout>
+</LinearLayout>
