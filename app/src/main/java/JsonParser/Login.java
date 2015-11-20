@@ -55,7 +55,7 @@ public class Login
             case -1:
                 return "Internet baglantisi yok";
             case 0:
-                return "Hatali bilgi yada internet yok";
+                return "Hatali bilgi";
             case 1:
                 return "Giris islemi basariyla gerceklestirildi";
             case 2:
