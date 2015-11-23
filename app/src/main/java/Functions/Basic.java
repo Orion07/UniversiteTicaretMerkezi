@@ -25,13 +25,21 @@ public class Basic
             "Van", "Yozgat", "Zonguldak", "Aksaray", "Bayburt", "Karaman", "Kırıkkale", "Batman", "Şırnak",
             "Bartın", "Ardahan", "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce"};
     String[] categories = {"Elektronik","Kirtasiye","Ev arkadasi","Ozel Ders Verenler","Is ilanlari","Spor,Diger"};
-
+    CharSequence[] tabNames = {"Profil","Mesajlar"};
     public boolean checkEmail(String email)
     {
         if(email.indexOf("@")>-1 && email.endsWith("edu.tr"))
             return true;
         else
             return false;
+    }
+    public CharSequence getTabName(int index)
+    {
+        return tabNames[index];
+    }
+    public int getTabCount()
+    {
+        return tabNames.length;
     }
     public void MsgBox(Context ctx,String msg)
     {

@@ -29,6 +29,10 @@
             android:name=".AnaActivity"
             android:label="@string/title_activity_ana" >
         </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,14 @@ public class AnaActivity extends AppCompatActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        TextView profil = (TextView) findViewById(R.id.textView);
+        profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileActivity = new Intent(AnaActivity.this, ProfileActivity.class);
+                startActivity(profileActivity);
+            }
+        });
         /*Bundle b = getIntent().getExtras();
         String value = b.getString("email");
 

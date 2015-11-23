@@ -66,6 +66,7 @@ public class NavigationDrawerFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
         selectItem(mCurrentSelectedPosition);
+
     }
 
     @Override
@@ -81,17 +82,11 @@ public class NavigationDrawerFragment extends Fragment {
                 R.layout.fragment_navigation_drawer, container, false);//fragment_navigation_drawer
         mDrawerListView.addHeaderView(inflater.inflate(R.layout.test, container, false));
 
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
-                TextView profil = (TextView) view.findViewById(R.id.textView);
-                profil.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i("Profil", "profile tıkladın");
-                    }
-                });
             }
         });
 
