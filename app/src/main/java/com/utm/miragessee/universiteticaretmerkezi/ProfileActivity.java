@@ -2,6 +2,7 @@ package com.utm.miragessee.universiteticaretmerkezi;
 
 import java.util.Locale;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity implements ActionBar.TabL
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -60,6 +62,12 @@ public class ProfileActivity extends AppCompatActivity implements ActionBar.TabL
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if(id == R.id.home)
+        {
+            NavUtils.navigateUpFromSameTask(this);
             return true;
         }
 
