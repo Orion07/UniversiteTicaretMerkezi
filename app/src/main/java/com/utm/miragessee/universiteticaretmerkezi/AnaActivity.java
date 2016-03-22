@@ -62,8 +62,8 @@ public class AnaActivity extends AppCompatActivity
         TextView email = (TextView)findViewById(R.id.txtMyEmail);
         email.setText(value);*/
 
-        TextView profil = (TextView) findViewById(R.id.textView);
-        profil.setOnClickListener(new View.OnClickListener() {
+        TextView profil2 = (TextView) findViewById(R.id.textView);
+        profil2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Profil", "profile tıkladın");
