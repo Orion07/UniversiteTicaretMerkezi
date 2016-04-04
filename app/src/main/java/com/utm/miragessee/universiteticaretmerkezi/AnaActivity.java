@@ -60,7 +60,7 @@ public class AnaActivity extends AppCompatActivity
         String value = b.getString("email");
 
         TextView email = (TextView)findViewById(R.id.txtMyEmail);
-        email.setText(value);*/
+        email.setText(value);
 
         TextView profil2 = (TextView) findViewById(R.id.textView);
         profil2.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +68,7 @@ public class AnaActivity extends AppCompatActivity
             public void onClick(View v) {
                 Log.i("Profil", "profile tıkladın");
             }
-        });
+        });*/
     }
 
     @Override

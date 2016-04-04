@@ -36,6 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfileActivity" />
         </activity>
+        <activity
+            android:name=".IlanEkleActivity"
+            android:label="@string/title_activity_ilan_ekle" >
+        </activity>
     </application>
 
 </manifest>
