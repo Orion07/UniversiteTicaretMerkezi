@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_kayit_ol">Kayit Ol</string>
     <string name="title_activity_ana">Ana Sayfa</string>
-    <string name="restfulURL">http://www.deathorder.com/restfulWebService/api.php</string>
+    <string name="restfulURL">http://www.yenicerionline.com/restfulWebService/api.php</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

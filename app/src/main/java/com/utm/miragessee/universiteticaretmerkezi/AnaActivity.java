@@ -15,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -122,6 +125,8 @@ public class AnaActivity extends AppCompatActivity
                 return true;
             case R.id.ilanekle:
                 b.MsgBox(getApplicationContext(),"ilan ekle basildi");
+                Intent ilanEkleActivity = new Intent(getBaseContext(), IlanEkleActivity.class);
+                startActivity(ilanEkleActivity);
                 break;
         }
         return super.onOptionsItemSelected(item);
