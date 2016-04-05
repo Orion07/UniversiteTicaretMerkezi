@@ -122,6 +122,8 @@ public class AnaActivity extends AppCompatActivity
         {
             case R.id.search:
                 b.MsgBox(getApplicationContext(),"ara basildi");
+                Intent ilanAraActivity = new Intent(getBaseContext(), IlanAraActivity.class);
+                startActivity(ilanAraActivity);
                 return true;
             case R.id.ilanekle:
                 b.MsgBox(getApplicationContext(),"ilan ekle basildi");
