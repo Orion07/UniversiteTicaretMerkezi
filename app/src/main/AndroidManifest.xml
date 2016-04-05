@@ -40,6 +40,10 @@
             android:name=".IlanEkleActivity"
             android:label="@string/title_activity_ilan_ekle" >
         </activity>
+        <activity
+            android:name=".IlanAraActivity"
+            android:label="@string/title_activity_ilan_ara" >
+        </activity>
     </application>
 
 </manifest>
