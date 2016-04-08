@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,12 +72,13 @@ public class IlanEkleActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = alertDialog;
                     builder.setTitle("Fiyat");
                     final EditText edittext = new EditText(getApplicationContext());
-                    edittext.setText(price);
+                    edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    edittext.setText(String.valueOf(price));
                     builder.setView(edittext);
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           price = Integer.parseInt(edittext.getText().toString());
+                            price = Integer.parseInt(edittext.getText().toString());
                         }
                     });
                     alertDialog.show();

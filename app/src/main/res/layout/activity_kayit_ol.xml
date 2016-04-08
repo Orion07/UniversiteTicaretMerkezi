@@ -115,4 +115,5 @@
         android:hint="Telefon(Basinda 0 olmadan yaziniz)"
         android:maxLength="14"
         android:drawableLeft="@drawable/phone"/>
+
 </RelativeLayout>
