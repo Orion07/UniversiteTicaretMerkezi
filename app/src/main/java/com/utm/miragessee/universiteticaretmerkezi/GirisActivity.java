@@ -91,6 +91,7 @@ public class GirisActivity extends AppCompatActivity {
             Intent mainActivity = new Intent(GirisActivity.this, AnaActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("email",login.getEmail());
+            bundle.putString("login_token",login.getLogin_token());
             mainActivity.putExtras(bundle);
             startActivity(mainActivity);
             this.finish();

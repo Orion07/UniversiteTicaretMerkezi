@@ -35,8 +35,16 @@ public class AnaActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, ShowListFragment.OnFragmentInteractionListener {
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+    private static String email = "";
+    private static String login_token = "";
 
+    public static String getEmail() {
+        return email;
+    }
 
+    public static String getLogin_token() {
+        return login_token;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +67,10 @@ public class AnaActivity extends AppCompatActivity
                 startActivity(profileActivity);
             }
         });
-        /*Bundle b = getIntent().getExtras();
-        String value = b.getString("email");
-
+        Bundle b = getIntent().getExtras();
+        String email = b.getString("email");
+        String login_token = b.getString("login_token");
+        /*
         TextView email = (TextView)findViewById(R.id.txtMyEmail);
         email.setText(value);
 
