@@ -54,7 +54,7 @@ public class Basic
             "Ufuk Üniversitesi","Ukrayna Ulusal Teknik Üniversitesi","Uludağ Üniversitesi","Uluslararası Saraybosna Üniversitesi","Uluslararasi Kıbrıs Üniversitesi",
             "Uşak Üniversitesi","Yakın Doğu Üniversitesi","Yalova Üniversitesi","Yaşar Üniversitesi","Yeditepe Üniversitesi","Yeni Yüzyıl Üniversitesi","Yıldırım Beyazıt Üniversitesi",
             "Yıldız Teknik Üniversitesi","Yüzüncü Yıl Üniversitesi","Zirve Üniversitesi","Zonguldak Karaelmas Üniversitesi"};
-    String[] categories = {"Elektronik","Kirtasiye","Ev arkadasi","Ozel Ders Verenler","Is ilanlari","Spor,Diger"};
+    public static String[] categories = {"Elektronik","Kirtasiye","Ev arkadasi","Ozel Ders Verenler","Is ilanlari","Spor,Diger"};
     CharSequence[] tabNames = {"Profil","Mesajlar"};
     public boolean checkEmail(String email)
     {

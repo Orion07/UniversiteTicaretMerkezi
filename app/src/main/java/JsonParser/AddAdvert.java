@@ -34,11 +34,12 @@ public class AddAdvert
             JSONObject json = new JSONObject(jsonStr);
             if(json.has("addAdvert"))
             {
-                email = json.getString("email");
-                login_token = json.getString("login_token");
+                JSONObject advert = (JSONObject) json.get("addAdvert");
+                email = advert.getString("email");
+                login_token = advert.getString("login_token");
                 if(login_token.equals(AnaActivity.getLogin_token()) && email.equals(AnaActivity.getEmail()))
                 {
-                    result = json.getInt("result");
+                    result = advert.getInt("result");
                 }
             }
         }catch (JSONException e)

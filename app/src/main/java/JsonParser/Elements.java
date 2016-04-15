@@ -16,8 +16,8 @@ public class Elements
         switch (index)
         {
             case 1:
-                elementsList.add(new ElementManager("resim","Elektronik","antalya","100"));
-                elementsList.add(new ElementManager("resim","Elektronik2","antalya","200"));
+                /*elementsList.add(new ElementManager("resim","Elektronik","antalya","100"));
+                elementsList.add(new ElementManager("resim","Elektronik2","antalya","200"));*/
                 break;
             case 2:
                 elementsList.add(new ElementManager("resim","Kirtasiye","antalya","300"));

@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +30,10 @@ public class IlanEkleActivity extends AppCompatActivity {
     int price = 0;
     int cityPosition = -1;
     int universityPosition = -1;
+    int category_id = -1;
     String details = null;
     String[] web = {
+            "Kategoriler",
             "İlan Başlığı",
             "Fiyat",
             "İl",
@@ -55,6 +58,24 @@ public class IlanEkleActivity extends AppCompatActivity {
                 if (position == 0) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
                     AlertDialog.Builder builder = alertDialog;
+                    builder.setTitle("Kategoriler");
+                    builder.setSingleChoiceItems(Basic.categories, category_id, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            category_id = position;
+                        }
+                    });
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertDialog.show();
+                }
+                if (position == 1) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
+                    AlertDialog.Builder builder = alertDialog;
                     builder.setTitle("İlan Başlığı");
                     final EditText edittext = new EditText(getApplicationContext());
                     edittext.setText(title);
@@ -67,7 +88,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                 }
-                if (position == 1) {
+                if (position == 2) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
                     AlertDialog.Builder builder = alertDialog;
                     builder.setTitle("Fiyat");
@@ -83,7 +104,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                 }
-                if (position == 2) {
+                if (position == 3) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
                     AlertDialog.Builder builder = alertDialog;
                     builder.setTitle("İller");
@@ -101,7 +122,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                 }
-                if (position == 3) {
+                if (position == 4) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
                     //AlertDialog.Builder builder = alertDialog;
                     alertDialog.setTitle("Üniversiteler");
@@ -118,7 +139,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                 }
-                if (position == 4) {
+                if (position == 5) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
                     AlertDialog.Builder builder = alertDialog;
                     builder.setTitle("Açıklama");
@@ -147,6 +168,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     params.put("login_token",AnaActivity.getLogin_token());
                     params.put("title",title);
                     params.put("price",price);
+                    params.put("category_id",category_id);
                     params.put("cityPosition",cityPosition);
                     params.put("universityPosition",universityPosition);
                     params.put("details",details);
@@ -158,9 +180,14 @@ public class IlanEkleActivity extends AppCompatActivity {
                 }
 
                 RestFul restful = new RestFul();
+                Basic b = new Basic();
                 String JSONResponse = restful.JSONRequest(func);
+                Log.i("REST : ",JSONResponse);
                 AddAdvert advert = new AddAdvert(JSONResponse);
-
+                b.MsgBox(getApplicationContext(),advert.getMessage());
+                if(advert.getResult() == 1) {
+                    finish();
+                }
             }
         });
     }

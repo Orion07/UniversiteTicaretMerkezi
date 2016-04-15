@@ -36,10 +36,12 @@ public class RestFul
             HttpClient httpClient = new DefaultHttpClient();
             try {
                 HttpPost request = new HttpPost(restfulURL);
+                System.out.println("JSON DATA : " + json.toString());
                 StringEntity entity = new StringEntity(json.toString());
                 request.addHeader("content-type", "application/x-www-form-urlencoded");
                 request.setEntity(entity);
                 HttpResponse response = httpClient.execute(request);
+                System.out.println("Status Code : " + response.getStatusLine());
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer sb = new StringBuffer("");
                 String line = "";

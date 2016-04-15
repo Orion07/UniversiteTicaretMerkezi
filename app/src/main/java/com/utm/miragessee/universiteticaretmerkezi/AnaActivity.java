@@ -68,8 +68,8 @@ public class AnaActivity extends AppCompatActivity
             }
         });
         Bundle b = getIntent().getExtras();
-        String email = b.getString("email");
-        String login_token = b.getString("login_token");
+        email = b.getString("email");
+        login_token = b.getString("login_token");
         /*
         TextView email = (TextView)findViewById(R.id.txtMyEmail);
         email.setText(value);
