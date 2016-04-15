@@ -57,17 +57,12 @@ public class AddAdvert
             case 0:
                 return "Hatali bilgi";
             case 1:
-                return "Giris islemi basariyla gerceklestirildi";
+                return "Ilan basariyla eklendi";
             case 2:
-                return "Sorgu Hatasi";
+                return "Token gecersiz";
             case 3:
-                return "Hesap aktif edilmemis.";
-            case 4:
-                return "Sifreniz yanlis";
-            case 5:
-                return "Boyle bir hesap yok";
-
+                return "Sorgu Hatasi";
         }
-        return "Bilinmeyen Hata[LOGIN]";
+        return "Bilinmeyen Hata[ADDADVERT]";
     }
 }
