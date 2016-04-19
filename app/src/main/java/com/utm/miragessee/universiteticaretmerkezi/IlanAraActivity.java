@@ -1,8 +1,11 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
+import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.MatrixCursor;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +22,7 @@ import org.json.JSONObject;
 import Functions.Basic;
 import Functions.RestFul;
 import JsonParser.Signup;
+
 
 public class IlanAraActivity extends AppCompatActivity {
 
@@ -67,6 +71,18 @@ public class IlanAraActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                System.out.println("QUERY TEXT : " + newText);
+                return false;
+            }
+        });
         return true;
     }
 

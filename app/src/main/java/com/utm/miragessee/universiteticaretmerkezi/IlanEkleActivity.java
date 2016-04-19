@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -87,7 +88,9 @@ public class IlanEkleActivity extends AppCompatActivity {
                     builder.setTitle("İlan Başlığı");
                     final EditText edittext = new EditText(getApplicationContext());
                     edittext.setText(title);
+                    edittext.setTextColor(Color.BLUE);
                     builder.setView(edittext);
+
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -103,6 +106,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     final EditText edittext = new EditText(getApplicationContext());
                     edittext.setInputType(InputType.TYPE_CLASS_NUMBER);
                     edittext.setText(String.valueOf(price));
+                    edittext.setTextColor(Color.BLUE);
                     builder.setView(edittext);
                     builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
