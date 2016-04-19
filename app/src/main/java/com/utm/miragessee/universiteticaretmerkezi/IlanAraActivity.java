@@ -8,8 +8,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import Functions.Basic;
+import Functions.RestFul;
+import JsonParser.Signup;
 
 public class IlanAraActivity extends AppCompatActivity {
 
@@ -18,6 +27,35 @@ public class IlanAraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ilan_ara);
         handleIntent(getIntent());
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSignupProcess();
+            }
+        });
+    }
+
+    public void onSignupProcess()
+    {
+        Basic bf = new Basic();
+        JSONObject params = null, func = null;
+        try {
+            params = new JSONObject();
+            params.put("ad","hakan");
+            params.put("cinsiyet","ibne");
+            func = new JSONObject();
+            func.put("method_name", "gavathakan");
+            func.put("method_params",params);
+        } catch (JSONException ex) {
+
+        }
+        RestFul restful = new RestFul();
+        String JSONResponse = restful.JSONRequest(func);
+        Signup signup = new Signup(JSONResponse);
+        bf.MsgBox(getApplicationContext(), signup.getMessage());
+        if(signup.getResult() == 1)
+            this.finish();
     }
 
     @Override

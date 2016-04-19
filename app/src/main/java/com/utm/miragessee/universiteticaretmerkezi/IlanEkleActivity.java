@@ -1,6 +1,9 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,24 +33,29 @@ public class IlanEkleActivity extends AppCompatActivity {
     String title = null;
     int price = 0;
     int cityPosition = -1;
+    int fotoPosition = -1;
     int universityPosition = -1;
     int category_id = -1;
     String details = null;
+    //String[] foto = {"Fotoğraf Çek","Galeriden Fotoğraf Seç"};
     String[] web = {
             "Kategoriler",
             "İlan Başlığı",
             "Fiyat",
             "İl",
             "Üniversite",
-            "Açıklama"
+            "Açıklama",
+            "Fotoğraf"
     } ;
-
+    //ImageView imgTakenPhoto;
+    //private static final int CAM_REQUEST = 1313;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ilan_ekle);
         final JSONObject params = new JSONObject(), func = new JSONObject();
         CustomList adapter = new CustomList(IlanEkleActivity.this, web);
+        //imgTakenPhoto = (ImageView) findViewById(R.id.imageView3);
         list=(ListView)findViewById(R.id.listView3);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +63,6 @@ public class IlanEkleActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(IlanEkleActivity.this, "You Clicked at " + web[+position], Toast.LENGTH_SHORT).show();
                 if (position == 0) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
                     AlertDialog.Builder builder = alertDialog;
@@ -154,7 +162,30 @@ public class IlanEkleActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                 }
-
+                if (position == 6) {
+                    /*
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(IlanEkleActivity.this);
+                    AlertDialog.Builder builder = alertDialog;
+                    builder.setTitle("Fotoğraf");
+                    builder.setSingleChoiceItems(foto, fotoPosition, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            fotoPosition = position;
+                        }
+                    });
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(IlanEkleActivity.this, ""+fotoPosition, Toast.LENGTH_LONG).show();
+                            if (fotoPosition == 0) {
+                                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(cameraIntent, CAM_REQUEST);
+                            }
+                        }
+                    });
+                    alertDialog.show();
+                    */
+                }
             }
         });
         Button btnEkle = (Button)findViewById(R.id.btnEkle);
@@ -191,7 +222,18 @@ public class IlanEkleActivity extends AppCompatActivity {
             }
         });
     }
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == CAM_REQUEST)
+        {
+            Bitmap tumbnail = (Bitmap) data.getExtras().get("data");
+            imgTakenPhoto.setImageBitmap(tumbnail);
+        }
+    }
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
