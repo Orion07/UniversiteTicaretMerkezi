@@ -51,6 +51,10 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FotoEkleActivity"
+            android:label="Fotoğraf Ekle" >
+        </activity>
     </application>
 
 </manifest>

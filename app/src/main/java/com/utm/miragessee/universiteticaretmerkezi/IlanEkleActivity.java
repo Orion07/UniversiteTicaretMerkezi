@@ -189,6 +189,8 @@ public class IlanEkleActivity extends AppCompatActivity {
                     });
                     alertDialog.show();
                     */
+                    Intent fotoEkleActivity = new Intent(getBaseContext(), FotoEkleActivity.class);
+                    startActivity(fotoEkleActivity);
                 }
             }
         });
