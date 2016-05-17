@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".GirisActivity"
             android:label="@string/app_name" >
@@ -30,24 +30,23 @@
             android:label="@string/title_activity_ana" >
         </activity>
         <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfileActivity" />
-        </activity>
-        <activity
             android:name=".IlanEkleActivity"
             android:label="@string/title_activity_ilan_ekle" >
         </activity>
         <activity
             android:name=".IlanAraActivity"
             android:label="@string/title_activity_ilan_ara" >
-            <meta-data android:name="android.app.searchable"
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
         </activity>
     </application>
 
