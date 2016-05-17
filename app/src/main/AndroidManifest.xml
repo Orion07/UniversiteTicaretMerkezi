@@ -48,6 +48,14 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail" >
+        </activity>
+        <activity
+            android:name=".PmActivity"
+            android:label="@string/title_activity_pm" >
+        </activity>
     </application>
 
 </manifest>

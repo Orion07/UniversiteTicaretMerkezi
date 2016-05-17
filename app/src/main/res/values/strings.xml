@@ -22,4 +22,6 @@
     <string name="title_activity_ilan_ekle">IlanEkleActivity</string>
     <string name="title_activity_ilan_ara">IlanAraActivity</string>
     <string name="search">search</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_pm">PmActivity</string>
 </resources>
