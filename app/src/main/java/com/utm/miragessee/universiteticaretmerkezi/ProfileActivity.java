@@ -1,9 +1,11 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TabHost;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -11,6 +13,22 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("Profilim");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Mesajlarım");
+
+        tab1.setIndicator("Profilim");
+        tab1.setIndicator("", getResources().getDrawable(R.drawable.common_signin_btn_icon_pressed_light));
+        tab1.setContent(new Intent(this, Tab1.class));
+
+        tab2.setIndicator("Mesajlarım");
+        tab2.setIndicator("", getResources().getDrawable(R.drawable.base_drawer_message));
+        tab2.setContent(new Intent(this, Tab2.class));
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
     }
 
     @Override
