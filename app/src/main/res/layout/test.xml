@@ -24,10 +24,10 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#eff4ff"
                 android:ellipsize="none"
-                android:gravity="top|left|center"
+                android:gravity="center"
                 android:id="@+id/textView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="27dp"
                 android:text="Profilim"
                 android:maxLines="1" />
         </LinearLayout>
