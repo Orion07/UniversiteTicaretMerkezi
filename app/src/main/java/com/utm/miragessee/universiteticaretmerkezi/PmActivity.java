@@ -1,11 +1,12 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class PmActivity extends AppCompatActivity {
+public class PmActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
