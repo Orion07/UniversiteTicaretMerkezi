@@ -56,6 +56,10 @@
             android:name=".PmActivity"
             android:label="@string/title_activity_pm" >
         </activity>
+        <activity
+            android:name=".IlanActivity"
+            android:label="@string/title_activity_ilan" >
+        </activity>
     </application>
 
 </manifest>
