@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.utm.miragessee.universiteticaretmerkezi.R;
@@ -117,6 +118,13 @@ public class ShowListFragment extends Fragment {
                 view = getLayoutInflater(getArguments()).inflate(R.layout.list_single, null, false);
 
             ElementManager currentElement = elementsList.get(position);
+            TableRow tableRow = (TableRow) view.findViewById(R.id.tablerow);
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("currentElement","ilan sayfasına git");
+                }
+            });
             TextView section = (TextView) view.findViewById(R.id.section);
             TextView location = (TextView) view.findViewById(R.id.location);
             TextView price = (TextView) view.findViewById(R.id.price);

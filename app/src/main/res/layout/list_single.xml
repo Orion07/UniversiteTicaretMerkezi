@@ -10,6 +10,7 @@
             android:paddingRight="5.0dip"
             android:src="@drawable/ev"/>
     <TableRow
+        android:id="@+id/tablerow"
         android:layout_width="match_parent"
         android:layout_height="100dp">
     <LinearLayout
