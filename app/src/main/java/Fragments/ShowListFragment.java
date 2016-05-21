@@ -35,6 +35,10 @@ public class ShowListFragment extends Fragment {
     TextView txt;
     public static CategoryManager cat;
     private OnFragmentInteractionListener mListener;
+    public ShowListFragment(){
+
+    }
+
 
     public static ShowListFragment newInstance(ArrayList<ElementManager> list) {
         ShowListFragment fragment = new ShowListFragment(list);

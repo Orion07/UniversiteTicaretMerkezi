@@ -3,6 +3,7 @@ package com.utm.miragessee.universiteticaretmerkezi;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class FotoEkleActivity extends BaseActivity {
     private ArrayList<String> imageUrls;
     private DisplayImageOptions options;
     private ImageAdapter imageAdapter;
-
+    private final int UTM_CODE = 618;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,17 +87,27 @@ public class FotoEkleActivity extends BaseActivity {
     public void btnChoosePhotosClick(View v){
 
         ArrayList<String> selectedItems = imageAdapter.getCheckedItems();
-        Toast.makeText(FotoEkleActivity.this, "Total photos selected: " + selectedItems.size(), Toast.LENGTH_SHORT).show();
-        Log.d(FotoEkleActivity.class.getSimpleName(), "Selected Items: " + selectedItems.toString());
+        if(selectedItems.size() > 5) {
+            Toast.makeText(FotoEkleActivity.this, "5den fazla fotoğraf seçemezsiniz", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(FotoEkleActivity.this, "Total photos selected: " + selectedItems.size(), Toast.LENGTH_SHORT).show();
+            Log.d(FotoEkleActivity.class.getSimpleName(), "Selected Items: " + selectedItems.toString());
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("photoList",selectedItems);
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == UTM_CODE) {
+            if (resultCode == RESULT_OK) {
 
-    /*private void startImageGalleryActivity(int position) {
-        Intent intent = new Intent(this, ImagePagerActivity.class);
-        intent.putExtra(Extra.IMAGES, imageUrls);
-        intent.putExtra(Extra.IMAGE_POSITION, position);
-        startActivity(intent);
-    }*/
-
+            }
+        }
+    }
     public class ImageAdapter extends BaseAdapter {
 
         ArrayList<String> mList;

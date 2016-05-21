@@ -63,6 +63,7 @@ public class AddAdvert
                 return "Token gecersiz";
             case 3:
                 return "Sorgu Hatasi";
+
         }
         return "Bilinmeyen Hata[ADDADVERT]";
     }

@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +21,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import Functions.Basic;
 import Functions.RestFul;
@@ -38,6 +46,7 @@ public class IlanEkleActivity extends AppCompatActivity {
     int universityPosition = -1;
     int category_id = -1;
     String details = null;
+    ArrayList<String> photoList = null;
     //String[] foto = {"Fotoğraf Çek","Galeriden Fotoğraf Seç"};
     String[] web = {
             "Kategoriler",
@@ -48,6 +57,7 @@ public class IlanEkleActivity extends AppCompatActivity {
             "Açıklama",
             "Fotoğraf"
     } ;
+    private final int UTM_CODE = 618;
     //ImageView imgTakenPhoto;
     //private static final int CAM_REQUEST = 1313;
     @Override
@@ -190,7 +200,8 @@ public class IlanEkleActivity extends AppCompatActivity {
                     alertDialog.show();
                     */
                     Intent fotoEkleActivity = new Intent(getBaseContext(), FotoEkleActivity.class);
-                    startActivity(fotoEkleActivity);
+                    //startActivity(fotoEkleActivity);
+                    startActivityForResult(fotoEkleActivity,UTM_CODE);
                 }
             }
         });
@@ -209,6 +220,8 @@ public class IlanEkleActivity extends AppCompatActivity {
                     params.put("cityPosition",cityPosition);
                     params.put("universityPosition",universityPosition);
                     params.put("details",details);
+                    JSONArray array = new JSONArray(imageList(photoList));
+                    params.put("photos",array);
                     func = new JSONObject();
                     func.put("method_name", "addAdvert");
                     func.put("method_params",params);
@@ -228,6 +241,40 @@ public class IlanEkleActivity extends AppCompatActivity {
             }
         });
     }
+    public String imageToBase64(String path)
+    {
+        FileInputStream fin = null;
+        String s = null;
+        try {
+            File f1 = new File(path);
+            fin = new FileInputStream(f1);
+            byte[] photostream = new byte[(int)f1.length()];
+            fin.read(photostream);
+            s = Base64.encodeToString(photostream,0);
+        } catch (Exception ex) {
+            Log.d("imageToBase64 : ",ex.getMessage());
+        }
+        return s;
+    }
+    public void base64ToImage(String newFileName,byte[] imageBuffer)
+    {
+        try{
+            FileOutputStream fos = new FileOutputStream(newFileName);
+            fos.write(imageBuffer);
+        }catch (Exception ex){
+            Log.d("base64ToImage : ",ex.getMessage());
+        }
+    }
+    public ArrayList<String> imageList(ArrayList<String> list)
+    {
+        ArrayList<String> photos = new ArrayList<String>();
+        Iterator iterator = list.iterator();
+        while(iterator.hasNext())
+        {
+            photos.add(imageToBase64((String)iterator.next()));
+        }
+        return photos;
+    }
     /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -240,6 +287,16 @@ public class IlanEkleActivity extends AppCompatActivity {
         }
     }
 */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == UTM_CODE) {
+            if (resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                photoList = extras.getStringArrayList("photoList");
+                Log.d("Activity Test","Geri döndüm qnq,Extra : " + photoList.toString() );
+            }
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
