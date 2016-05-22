@@ -1,8 +1,10 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -20,24 +22,34 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import Fragments.ShowListFragment;
 import Functions.Basic;
+import Functions.IRestfulTask;
 import JsonParser.Categories;
 import JsonParser.CategoryManager;
 import JsonParser.Elements;
+import JsonParser.GetCategoryList;
 
 
 public class AnaActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ShowListFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ShowListFragment.OnFragmentInteractionListener,IRestfulTask {
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private static String email = "";
     private static String login_token = "";
-
+    private Elements e;
     public static String getEmail() {
         return email;
     }
@@ -90,11 +102,9 @@ public class AnaActivity extends AppCompatActivity
             //profile activity
         }
         else {
-            Elements e = new Elements(position);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, ShowListFragment.newInstance(e.getElementsList()))
-                    .commit();
+            e = new Elements(position);
+            RestfulTask task = new RestfulTask();
+            task.execute(e.getList(position));
 
             Categories c = new Categories();
             ArrayList<CategoryManager> manager = c.getCategoriesList();
@@ -146,5 +156,86 @@ public class AnaActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void postResult(String s)
+    {
+        System.out.println("DATA GELDİ QNQ : " + s);
+        GetCategoryList catList = new GetCategoryList(s);
+        //return catList.list();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, ShowListFragment.newInstance(catList.list()))
+                .commit();
+    }
+
+    public class RestfulTask extends AsyncTask<JSONObject,Void,String>
+    {
+        public String restfulURL = getString(R.string.restfulURL);
+        public IRestfulTask delegate = null;
+        private ProgressDialog pdia;
+        /*public RestfulTask(IRestfulTask delegate)
+        {
+            this.delegate = delegate;
+        }*/
+        @Override
+        protected String doInBackground(JSONObject... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            //System.out.println("Params : " + params.toString());
+            JSONObject json = params[0];
+            try {
+                HttpPost request = new HttpPost(restfulURL);
+                System.out.println("JSON DATA2 : " + json.toString());
+                StringEntity entity = new StringEntity(json.toString());
+                request.addHeader("content-type", "application/x-www-form-urlencoded");
+                request.setEntity(entity);
+                HttpResponse response = httpClient.execute(request);
+                System.out.println("Status Code : " + response.getStatusLine());
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                String NL = System.getProperty("line.separator");
+                while ((line = rd.readLine()) != null) {
+                    sb.append(line + NL);
+                }
+                rd.close();
+                return sb.toString();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdia = new ProgressDialog(AnaActivity.this);
+            pdia.setMessage("Loading...");
+            pdia.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            postResult(result);
+            pdia.dismiss();
+            /*if(delegate!=null) {
+                delegate.postResult(result);
+            }else
+            {
+                System.out.println("delegate is null");
+            }*/
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onCancelled(String result) {
+            super.onCancelled(result);
+        }
     }
 }

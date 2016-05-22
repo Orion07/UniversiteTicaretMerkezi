@@ -1,9 +1,12 @@
 package Fragments;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import JsonParser.CategoryManager;
@@ -51,6 +55,7 @@ public class ShowListFragment extends Fragment {
     public ShowListFragment(ArrayList<ElementManager> list)
     {
         elementsList = list;
+        System.out.println("Elements List Size : " + list.size());
         Log.i("Fragmen Log","ben geldim");
     }
 
@@ -110,7 +115,11 @@ public class ShowListFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
+    public void setImageViewWithByteArray(ImageView view, String image) {
+        byte[] data = Base64.decode(image,0);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        view.setImageBitmap(bitmap);
+    }
     private class ElemanlarManagerListAdapter extends ArrayAdapter<ElementManager> {
         public ElemanlarManagerListAdapter() {
             super(getActivity(), R.layout.list_single, elementsList);
@@ -136,8 +145,12 @@ public class ShowListFragment extends Fragment {
             location.setText(currentElement.getKonum());
             price.setText(currentElement.getFiyat());
             ImageView img = (ImageView) view.findViewById(R.id.img);
-            img.setImageResource(R.drawable.ev);
+            //img.setImageResource(R.drawable.ev);
+            setImageViewWithByteArray(img,currentElement.getResim());
+
             return view;
         }
     }
 }
+
+

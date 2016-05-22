@@ -3,9 +3,14 @@ package Functions;
 import android.content.Context;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 
 import JsonParser.CategoryManager;
@@ -89,7 +94,7 @@ public class Basic
         map.put(4,new CategoryManager(4,"Ozel Ders Verenler",R.drawable.study));//study
         map.put(5,new CategoryManager(5,"Is ilanlari", R.drawable.suitcase));//suitcase
         map.put(6,new CategoryManager(6,"Spor",R.drawable.sport));//sport
-        map.put(7,new CategoryManager(7,"Diger",R.drawable.ic_action_name));//android
+        map.put(7, new CategoryManager(7, "Diger", R.drawable.ic_action_name));//android
         return map;
     }
     public HashMap<Integer,Integer> getSubCategoryMap()
@@ -97,6 +102,32 @@ public class Basic
         //coming soon xd
         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
         return map;
+    }
+    public String imageToBase64(String path)
+    {
+        FileInputStream fin = null;
+        String s = null;
+        try {
+            File f1 = new File(path);
+            fin = new FileInputStream(f1);
+            byte[] photostream = new byte[(int)f1.length()];
+            fin.read(photostream);
+            s = Base64.encodeToString(photostream, 0);
+        } catch (Exception ex) {
+            Log.d("imageToBase64 : ", ex.getMessage());
+        }
+        return s;
+    }
+    public void base64ToImage(String imageBuffer)
+    {
+
+//        try{
+//            FileOutputStream fos = new FileOutputStream(newFileName);
+//            fos.write(imageBuffer);
+//        }catch (Exception ex){
+//            Log.d("base64ToImage : ",ex.getMessage());
+//        }
+
     }
 }
 

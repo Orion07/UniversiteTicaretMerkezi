@@ -7,12 +7,22 @@ import android.os.Parcel;
  */
 public class ElementManager {
     private String resim,baslik,konum,fiyat;
+    private int id ;
 
-    public ElementManager(String resim, String baslik, String konum, String fiyat) {
+    public ElementManager(int id,String resim, String baslik, String konum, String fiyat) {
+        this.id = id;
         this.resim = resim;
         this.baslik = baslik;
         this.konum = konum;
         this.fiyat = fiyat;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBaslik() {

@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.internal.LocationRequestUpdateData;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -167,7 +169,9 @@ public class IlanEkleActivity extends AppCompatActivity {
                     builder.setTitle("Açıklama");
                     final EditText edittext = new EditText(getApplicationContext());
                     edittext.setText(details);
+                    edittext.setTextColor(Color.BLUE);
                     builder.setView(edittext);
+
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -220,11 +224,17 @@ public class IlanEkleActivity extends AppCompatActivity {
                     params.put("cityPosition",cityPosition);
                     params.put("universityPosition",universityPosition);
                     params.put("details",details);
-                    JSONArray array = new JSONArray(imageList(photoList));
+                    ArrayList<String> list = imageList(photoList);
+                    if(list == null)
+                    {
+                        Log.d("Photo List state : ","list is null");
+                        return ;
+                    }
+                    JSONArray array = new JSONArray(list);
                     params.put("photos",array);
                     func = new JSONObject();
                     func.put("method_name", "addAdvert");
-                    func.put("method_params",params);
+                    func.put("method_params", params);
                 } catch (JSONException ex) {
 
                 }
@@ -241,52 +251,19 @@ public class IlanEkleActivity extends AppCompatActivity {
             }
         });
     }
-    public String imageToBase64(String path)
-    {
-        FileInputStream fin = null;
-        String s = null;
-        try {
-            File f1 = new File(path);
-            fin = new FileInputStream(f1);
-            byte[] photostream = new byte[(int)f1.length()];
-            fin.read(photostream);
-            s = Base64.encodeToString(photostream,0);
-        } catch (Exception ex) {
-            Log.d("imageToBase64 : ",ex.getMessage());
-        }
-        return s;
-    }
-    public void base64ToImage(String newFileName,byte[] imageBuffer)
-    {
-        try{
-            FileOutputStream fos = new FileOutputStream(newFileName);
-            fos.write(imageBuffer);
-        }catch (Exception ex){
-            Log.d("base64ToImage : ",ex.getMessage());
-        }
-    }
     public ArrayList<String> imageList(ArrayList<String> list)
     {
         ArrayList<String> photos = new ArrayList<String>();
-        Iterator iterator = list.iterator();
-        while(iterator.hasNext())
-        {
-            photos.add(imageToBase64((String)iterator.next()));
+        Basic b = new Basic();
+        if(list!=null) {
+
+            Iterator iterator = list.iterator();
+            while (iterator.hasNext()) {
+                photos.add(b.imageToBase64((String) iterator.next()));
+            }
         }
         return photos;
     }
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == CAM_REQUEST)
-        {
-            Bitmap tumbnail = (Bitmap) data.getExtras().get("data");
-            imgTakenPhoto.setImageBitmap(tumbnail);
-        }
-    }
-*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == UTM_CODE) {

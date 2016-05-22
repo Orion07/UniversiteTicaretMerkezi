@@ -22,4 +22,5 @@
         android:name="com.utm.miragessee.universiteticaretmerkezi.NavigationDrawerFragment"
         tools:layout="@layout/fragment_showlist" />
 
+
 </android.support.v4.widget.DrawerLayout>
