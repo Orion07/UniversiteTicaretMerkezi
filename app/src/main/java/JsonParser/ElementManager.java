@@ -2,10 +2,12 @@ package JsonParser;
 
 import android.os.Parcel;
 
+import java.io.Serializable;
+
 /**
  * Created by Hakan on 15.11.2015.
  */
-public class ElementManager {
+public class ElementManager implements Serializable{
     private String resim,baslik,konum,fiyat;
     private int id ;
 

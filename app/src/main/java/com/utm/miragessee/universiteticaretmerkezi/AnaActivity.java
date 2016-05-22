@@ -82,17 +82,6 @@ public class AnaActivity extends AppCompatActivity
         Bundle b = getIntent().getExtras();
         email = b.getString("email");
         login_token = b.getString("login_token");
-        /*
-        TextView email = (TextView)findViewById(R.id.txtMyEmail);
-        email.setText(value);
-
-        TextView profil2 = (TextView) findViewById(R.id.textView);
-        profil2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Profil", "profile tıkladın");
-            }
-        });*/
     }
 
     @Override
@@ -134,9 +123,6 @@ public class AnaActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         Basic b = new Basic();
         int id = item.getItemId();
-        /*if (id == R.id.search) {
-            return true;
-        }*/
         switch (id)
         {
             case R.id.search:
@@ -161,9 +147,8 @@ public class AnaActivity extends AppCompatActivity
     @Override
     public void postResult(String s)
     {
-        System.out.println("DATA GELDİ QNQ : " + s);
+        //System.out.println("DATA GELDİ QNQ : " + s);
         GetCategoryList catList = new GetCategoryList(s);
-        //return catList.list();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, ShowListFragment.newInstance(catList.list()))
@@ -175,18 +160,13 @@ public class AnaActivity extends AppCompatActivity
         public String restfulURL = getString(R.string.restfulURL);
         public IRestfulTask delegate = null;
         private ProgressDialog pdia;
-        /*public RestfulTask(IRestfulTask delegate)
-        {
-            this.delegate = delegate;
-        }*/
         @Override
         protected String doInBackground(JSONObject... params) {
             HttpClient httpClient = new DefaultHttpClient();
-            //System.out.println("Params : " + params.toString());
             JSONObject json = params[0];
             try {
                 HttpPost request = new HttpPost(restfulURL);
-                System.out.println("JSON DATA2 : " + json.toString());
+                //System.out.println("JSON DATA2 : " + json.toString());
                 StringEntity entity = new StringEntity(json.toString());
                 request.addHeader("content-type", "application/x-www-form-urlencoded");
                 request.setEntity(entity);
@@ -220,12 +200,6 @@ public class AnaActivity extends AppCompatActivity
             super.onPostExecute(result);
             postResult(result);
             pdia.dismiss();
-            /*if(delegate!=null) {
-                delegate.postResult(result);
-            }else
-            {
-                System.out.println("delegate is null");
-            }*/
         }
 
         @Override

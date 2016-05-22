@@ -4,6 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import JsonParser.ElementManager;
 
 public class IlanActivity extends AppCompatActivity {
 
@@ -11,6 +15,11 @@ public class IlanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ilan);
+        Bundle bundle = getIntent().getExtras();
+        ElementManager element = (ElementManager)bundle.getSerializable("advert");
+        System.out.println(element.getBaslik());
+        TextView txtTitle = (TextView)findViewById(R.id.txtTitle);
+        txtTitle.setText(element.getBaslik());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.utm.miragessee.universiteticaretmerkezi.AnaActivity;
+import com.utm.miragessee.universiteticaretmerkezi.DetailActivity;
+import com.utm.miragessee.universiteticaretmerkezi.IlanActivity;
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
 import java.io.UnsupportedEncodingException;
@@ -130,12 +134,17 @@ public class ShowListFragment extends Fragment {
             if (view == null)
                 view = getLayoutInflater(getArguments()).inflate(R.layout.list_single, null, false);
 
-            ElementManager currentElement = elementsList.get(position);
+            final ElementManager currentElement = elementsList.get(position);
             TableRow tableRow = (TableRow) view.findViewById(R.id.tablerow);
             tableRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("currentElement","ilan sayfasına git");
+                    //Log.i("currentElement : ",String.valueOf(position));
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("advert",currentElement);
+                    Intent detail = new Intent(getActivity(), IlanActivity.class);
+                    detail.putExtras(bundle);
+                    startActivity(detail);
                 }
             });
             TextView section = (TextView) view.findViewById(R.id.section);

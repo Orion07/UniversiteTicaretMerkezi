@@ -26,4 +26,5 @@
     <string name="title_activity_pm">PmActivity</string>
     <string name="title_activity_ilan">IlanActivity</string>
     <string name="title_activity_fotoekle">FotoEkleActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
 </resources>
