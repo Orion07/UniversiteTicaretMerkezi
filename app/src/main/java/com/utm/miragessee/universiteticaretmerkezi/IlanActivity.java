@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
 import Functions.Basic;
 import JsonParser.ElementManager;
@@ -27,12 +29,12 @@ public class IlanActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         ElementManager element = (ElementManager)bundle.getSerializable("advert");
         System.out.println(element.getBaslik());
-        TextView txtTitle = (TextView)findViewById(R.id.textView2);
-        txtTitle.setText(element.getBaslik());
-        Gallery gallery =(Gallery)findViewById(R.id.gallery);
+        //TextView txtTitle = (TextView)findViewById(R.id.textView2);
+        //txtTitle.setText(element.getBaslik());
+        //Gallery gallery =(Gallery)findViewById(R.id.gallery);
         GalleryAdapter galleryObj = new GalleryAdapter(this,element.getResim());
-        gallery.setSpacing(1);
-        gallery.setAdapter(galleryObj);
+        //gallery.setSpacing(1);
+        //gallery.setAdapter(galleryObj);
     }
 
     @Override

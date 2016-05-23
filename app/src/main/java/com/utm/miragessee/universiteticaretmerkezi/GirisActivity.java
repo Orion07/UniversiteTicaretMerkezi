@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import Functions.Basic;
 import Functions.RestFul;
-import Functions.RestfulTask2;
+//import Functions.RestfulTask2;
 import JsonParser.CategoryManager;
 import JsonParser.Login;
 
@@ -36,7 +36,7 @@ public class GirisActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
         RestFul.restfulURL = getString(R.string.restfulURL);
-        RestfulTask2.restfulURL = getString(R.string.restfulURL);
+        //RestfulTask2.restfulURL = getString(R.string.restfulURL);
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtEmail.setText("l1211016020@stud.sdu.edu.tr");

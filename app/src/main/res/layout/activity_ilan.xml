@@ -14,6 +14,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.utm.miragessee.universiteticaretmerkezi.MainActivityFragment"
+            android:id="@+id/fragment"
+            android:layout_gravity="center_horizontal" />
+
         <Gallery
             android:layout_width="200dp"
             android:layout_height="180dp"
