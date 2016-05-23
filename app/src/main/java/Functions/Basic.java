@@ -1,6 +1,8 @@
 package Functions;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -8,10 +10,15 @@ import android.util.Log;
 import android.widget.Toast;
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import JsonParser.CategoryManager;
 
@@ -103,6 +110,56 @@ public class Basic
         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
         return map;
     }
+    public String compressImage(String path)
+    {
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        try {
+            GZIPOutputStream gzipOstream = null;
+            try {
+                gzipOstream = new GZIPOutputStream(stream);
+                myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, gzipOstream);
+                gzipOstream.flush();
+            } finally {
+                gzipOstream.close();
+                stream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            stream = null;
+        }
+        if(stream != null) {
+            byte[] byteArry=stream.toByteArray();
+            return Base64.encodeToString(byteArry, Base64.NO_WRAP);
+        }
+        return null;
+    }
+    public Bitmap decompressImage(String encodedImage)
+    {
+        byte[] decodedArray = Base64.decode(encodedImage,Base64.NO_WRAP);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ByteArrayInputStream bis = new ByteArrayInputStream(decodedArray);
+
+        GZIPInputStream zis = null;
+        try {
+            zis = new GZIPInputStream(bis);
+            byte[] tmpBuffer = new byte[256];
+            int n;
+            while ((n = zis.read(tmpBuffer)) >= 0) {
+                bos.write(tmpBuffer, 0, n);
+            }
+            zis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bos.toByteArray(), 0, bos.toByteArray().length);
+
+        if(bitmap != null) {
+            return bitmap;
+        }
+        return null;
+    }
     public String imageToBase64(String path)
     {
         FileInputStream fin = null;
@@ -113,6 +170,7 @@ public class Basic
             byte[] photostream = new byte[(int)f1.length()];
             fin.read(photostream);
             s = Base64.encodeToString(photostream, 0);
+            System.out.println("Base 64 size : " + s.length());
         } catch (Exception ex) {
             Log.d("imageToBase64 : ", ex.getMessage());
         }

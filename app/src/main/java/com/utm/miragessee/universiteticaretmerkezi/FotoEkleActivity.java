@@ -80,8 +80,10 @@ public class FotoEkleActivity extends BaseActivity {
 
     @Override
     protected void onStop() {
-        imageLoader.stop();
         super.onStop();
+        //finish();
+        //
+        //imageLoader.stop();
     }
 
     public void btnChoosePhotosClick(View v){

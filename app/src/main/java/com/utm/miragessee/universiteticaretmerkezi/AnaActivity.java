@@ -147,7 +147,7 @@ public class AnaActivity extends AppCompatActivity
     @Override
     public void postResult(String s)
     {
-        //System.out.println("DATA GELDİ QNQ : " + s);
+        System.out.println("DATA GELDİ QNQ : " + s);
         GetCategoryList catList = new GetCategoryList(s);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

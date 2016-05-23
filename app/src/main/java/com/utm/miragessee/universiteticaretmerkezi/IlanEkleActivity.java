@@ -3,6 +3,7 @@ package com.utm.miragessee.universiteticaretmerkezi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -27,11 +28,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import Functions.Basic;
 import Functions.RestFul;
@@ -259,11 +265,13 @@ public class IlanEkleActivity extends AppCompatActivity {
 
             Iterator iterator = list.iterator();
             while (iterator.hasNext()) {
-                photos.add(b.imageToBase64((String) iterator.next()));
+                String ss = (String) iterator.next();
+                photos.add(b.compressImage(ss));
             }
         }
         return photos;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == UTM_CODE) {

@@ -26,6 +26,7 @@ import com.utm.miragessee.universiteticaretmerkezi.R;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import Functions.Basic;
 import JsonParser.CategoryManager;
 import JsonParser.ElementManager;
 
@@ -155,7 +156,10 @@ public class ShowListFragment extends Fragment {
             price.setText(currentElement.getFiyat());
             ImageView img = (ImageView) view.findViewById(R.id.img);
             //img.setImageResource(R.drawable.ev);
-            setImageViewWithByteArray(img,currentElement.getResim());
+            Basic b = new Basic();
+            Bitmap map = b.decompressImage(currentElement.getResim());
+            img.setImageBitmap(map);
+            //setImageViewWithByteArray(img,currentElement.getResim());
 
             return view;
         }
