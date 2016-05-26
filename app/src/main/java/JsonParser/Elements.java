@@ -13,7 +13,7 @@ import Functions.*;
 public class Elements /*implements IRestfulTask*/
 {
     public ArrayList<ElementManager> elementsList = new ArrayList<ElementManager>();
-    public  Elements(int index)
+    public  Elements()
     {
         //getList(index);
         /*switch (index)
@@ -58,25 +58,6 @@ public class Elements /*implements IRestfulTask*/
 
         }
         return func;
-        //RestFul restful = new RestFul();
-        //Basic b = new Basic();
-        //String JSONResponse = restful.JSONRequest(func);
-        //GetCategoryList catList = new GetCategoryList(JSONResponse);
-        //return catList.list();
-        /*RestfulTask2 task = new RestfulTask2(new IRestfulTask() {
-            @Override
-            public void postResult(String s) {
-                System.out.println("JSON GELEN : " + s);
-                GetCategoryList catList = new GetCategoryList(s);
-                elementsList = catList.list();
-            }
-        });
-        task.execute(func);*/
     }
 
-   /* @Override
-    public void postResult(String s) {
-        //GetCategoryList catList = new GetCategoryList(s);
-        //elementsList = catList.list();
-    }*/
 }

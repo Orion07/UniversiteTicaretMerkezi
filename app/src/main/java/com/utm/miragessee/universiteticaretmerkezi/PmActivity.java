@@ -1,17 +1,65 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.app.Activity;
+import android.app.TabActivity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-public class PmActivity extends Activity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import Functions.Basic;
+import Functions.RestFul;
+import JsonParser.ElementManager;
+import JsonParser.PMessage;
+import JsonParser.Phone;
+
+public class PmActivity extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pm);
+        TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("Gelen");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Giden");
+
+        tab1.setIndicator("Gelen");
+        tab1.setContent(new Intent(this, GelenPMActivity.class));
+
+        tab2.setIndicator("Giden");
+        tab2.setContent(new Intent(this, GidenPmActivity.class));
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
     }
 
     @Override
@@ -35,4 +83,5 @@ public class PmActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

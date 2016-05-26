@@ -1,165 +1,59 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    tools:context="com.utm.miragessee.universiteticaretmerkezi.PmActivity">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_centerInParent="true"
+        <TabHost
+            android:id="@android:id/tabhost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="28dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:fontFamily="sans-serif"
-                    android:text="İlan Adı : "
-                    android:id="@+id/textView6"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:orientation="vertical"
-                    android:id="@+id/section"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:textColor="#1d1d1d"
-                    android:fontFamily="sans-serif"
-                    android:text="asdfasdfasdfasdf"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="18sp"/>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:id="@+id/imageView3"
-                        android:background="@drawable/tick"/>
-                </TableRow>
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="28dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Gönderen : "
-                    android:id="@+id/textView7"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:orientation="vertical"
-                    android:id="@+id/adsoyad"
+                <TabWidget
+                    android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#1d1d1d"
-                    android:layout_above = "@+id/section"
-                    android:text="Ali Göçmen"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="3dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="18sp"/>
+                    android:layout_height="wrap_content"></TabWidget>
 
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="28dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Mesaj : "
-                    android:id="@+id/textView8"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:orientation="vertical"
-                    android:id="@+id/message"
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#1d1d1d"
-                    android:text="kardeşşşşşşşşşşşşşşşşşşş"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="18sp"/>
+                    android:layout_height="match_parent">
 
+                    <LinearLayout
+                        android:id="@+id/tab1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tab3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+                </FrameLayout>
             </LinearLayout>
+        </TabHost>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:weightSum="1">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Tarih : "
-                    android:id="@+id/textView9"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:orientation="vertical"
-                    android:id="@+id/textView10"
-                    android:layout_width="220dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="#1d1d1d"
-                    android:text="kardeşşşşşşşşşşşşşşşşşşş"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="18sp" />
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:id="@+id/button2"
-                        android:background="@drawable/call22"
-                        />
-                </TableRow>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </TableRow>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

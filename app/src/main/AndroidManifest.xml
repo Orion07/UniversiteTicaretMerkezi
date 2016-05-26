@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -65,6 +66,18 @@
         <activity
             android:name=".FotoEkleActivity"
             android:label="@string/title_activity_fotoekle" >
+        </activity>
+        <activity
+            android:name=".IlanlarimActivity"
+            android:label="@string/title_activity_ilanlarim" >
+        </activity>
+        <activity
+            android:name=".GelenPMActivity"
+            android:label="@string/title_activity_gelen_pm" >
+        </activity>
+        <activity
+            android:name=".GidenPmActivity"
+            android:label="@string/title_activity_giden_pm" >
         </activity>
     </application>
 

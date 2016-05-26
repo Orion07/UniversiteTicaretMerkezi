@@ -26,6 +26,8 @@
     <string name="title_activity_pm">PmActivity</string>
     <string name="title_activity_ilan">IlanActivity</string>
     <string name="title_activity_fotoekle">FotoEkleActivity</string>
-    <string name="title_activity_my_profile">MyProfileActivity</string>
+    <string name="title_activity_ilanlarim">IlanlarimActivity</string>
+    <string name="title_activity_gelen_pm">GelenPMActivity</string>
+    <string name="title_activity_giden_pm">GidenPmActivity</string>
 
 </resources>

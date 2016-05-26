@@ -91,10 +91,9 @@ public class AnaActivity extends AppCompatActivity
             //profile activity
         }
         else {
-            e = new Elements(position);
+            e = new Elements();
             RestfulTask task = new RestfulTask();
             task.execute(e.getList(position));
-
             Categories c = new Categories();
             ArrayList<CategoryManager> manager = c.getCategoriesList();
             CategoryManager catManager = manager.get(position - 1);

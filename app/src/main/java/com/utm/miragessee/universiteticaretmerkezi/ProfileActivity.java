@@ -20,6 +20,7 @@ public class ProfileActivity extends TabActivity {
 
         TabHost.TabSpec tab1 = tabHost.newTabSpec("Profilim");
         TabHost.TabSpec tab2 = tabHost.newTabSpec("Mesajlarım");
+        TabHost.TabSpec tab3 = tabHost.newTabSpec("Ilanlarım");
 
         tab1.setIndicator("Profilim");
         //tab1.setIndicator("Profilim", getResources().getDrawable(R.drawable.common_signin_btn_icon_pressed_light));
@@ -29,8 +30,12 @@ public class ProfileActivity extends TabActivity {
         //tab2.setIndicator("Mesajlarım", getResources().getDrawable(R.drawable.base_drawer_message));
         tab2.setContent(new Intent(this, PmActivity.class));
 
+        tab3.setIndicator("Ilanlarım");
+        tab3.setContent(new Intent(this,IlanlarimActivity.class));
+
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
+        tabHost.addTab(tab3);
     }
 
     @Override

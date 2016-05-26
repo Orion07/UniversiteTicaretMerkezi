@@ -50,6 +50,7 @@ public class RestFul
                     sb.append(line + NL);
                 }
                 rd.close();
+                System.out.println("JSON GELEN : " + sb.toString());
                 return sb.toString();
             } catch (Exception e) {
                 System.out.println(e.getMessage());

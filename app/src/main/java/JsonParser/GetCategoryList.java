@@ -25,9 +25,6 @@ public class GetCategoryList
                 JSONObject jsonCategory = (JSONObject) json.get("getCategoryList");
                 int result = jsonCategory.getInt("result");
                 if(result == 1) {
-                    //String email = jsonCategory.getString("email");
-                    //String login_token = jsonCategory.getString("login_token");
-                    int size = jsonCategory.getInt("size");
                     JSONArray jsonArray = jsonCategory.getJSONArray("list");
                     for(int i = 0;i<jsonArray.length();i++)
                     {

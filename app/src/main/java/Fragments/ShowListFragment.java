@@ -1,12 +1,15 @@
 package Fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,12 +26,24 @@ import com.utm.miragessee.universiteticaretmerkezi.DetailActivity;
 import com.utm.miragessee.universiteticaretmerkezi.IlanActivity;
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import Functions.Basic;
+import Functions.IRestfulTask;
+import JsonParser.Advert;
 import JsonParser.CategoryManager;
 import JsonParser.ElementManager;
+import JsonParser.GetCategoryList;
 
 public class ShowListFragment extends Fragment {
 
@@ -61,7 +76,7 @@ public class ShowListFragment extends Fragment {
     {
         elementsList = list;
         System.out.println("Elements List Size : " + list.size());
-        Log.i("Fragmen Log","ben geldim");
+        Log.i("Fragmen Log", "ben geldim");
     }
 
     @Override
@@ -120,12 +135,7 @@ public class ShowListFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-    public void setImageViewWithByteArray(ImageView view, String image) {
-        byte[] data = Base64.decode(image,0);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        view.setImageBitmap(bitmap);
-    }
-    private class ElemanlarManagerListAdapter extends ArrayAdapter<ElementManager> {
+    private class ElemanlarManagerListAdapter extends ArrayAdapter<ElementManager>{
         public ElemanlarManagerListAdapter() {
             super(getActivity(), R.layout.list_single, elementsList);
         }
@@ -140,12 +150,11 @@ public class ShowListFragment extends Fragment {
             tableRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Log.i("currentElement : ",String.valueOf(position));
+                    Intent intent = new Intent(getActivity(),IlanActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("advert",currentElement);
-                    Intent detail = new Intent(getActivity(), IlanActivity.class);
-                    detail.putExtras(bundle);
-                    startActivity(detail);
+                    bundle.putInt("advertid",currentElement.getId());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             });
             TextView section = (TextView) view.findViewById(R.id.section);
@@ -158,11 +167,13 @@ public class ShowListFragment extends Fragment {
             //img.setImageResource(R.drawable.ev);
             Basic b = new Basic();
             Bitmap map = b.decompressImage(currentElement.getResim());
+            img.setScaleType(ImageView.ScaleType.FIT_XY);
             img.setImageBitmap(map);
             //setImageViewWithByteArray(img,currentElement.getResim());
 
             return view;
         }
+
     }
 }
 
