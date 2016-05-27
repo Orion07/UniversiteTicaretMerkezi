@@ -16,13 +16,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.sql.Date;
 import java.util.ArrayList;
 
+import Functions.RestFul;
 import JsonParser.PMessage;
 
 public class GelenPMActivity extends Activity {
@@ -31,25 +35,22 @@ public class GelenPMActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gelen_pm);
-
-        PMessage p = new PMessage(1,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p2 = new PMessage(2,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p3 = new PMessage(3,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p4 = new PMessage(4,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p5 = new PMessage(5,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p6 = new PMessage(6,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p7 = new PMessage(7,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p8 = new PMessage(8,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",true);
-        ArrayList<PMessage> list = new ArrayList<PMessage>();
-        list.add(p);
-        list.add(p2);
-        list.add(p3);
-        list.add(p4);
-        list.add(p5);
-        list.add(p6);
-        list.add(p7);
-        list.add(p8);
-        PMessageAdapter adapter = new PMessageAdapter(GelenPMActivity.this,list);
+        JSONObject params = null,func = null;
+        try{
+            params = new JSONObject();
+            params.put("email",AnaActivity.getEmail());
+            params.put("login_token",AnaActivity.getLogin_token());
+            params.put("type",true);
+            func = new JSONObject();
+            func.put("method_name","getMessage");
+            func.put("method_params",params);
+        }catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        RestFul restful = new RestFul();
+        PMessage msg = new PMessage(restful.JSONRequest(func));
+        PMessageAdapter adapter = new PMessageAdapter(GelenPMActivity.this,msg.getList());
         ListView listview = (ListView)findViewById(R.id.listView5);
         listview.setAdapter(adapter);
     }
@@ -92,7 +93,8 @@ public class GelenPMActivity extends Activity {
                 LayoutInflater inflaterPassword = getLayoutInflater();
                 view = inflaterPassword.inflate(R.layout.pm_list, null);
             }
-
+            if(list.size()<=0)
+                return view;
             final PMessage currentElement = list.get(position);
             TableRow tableRow = (TableRow) view.findViewById(R.id.tablepm);
             tableRow.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +138,7 @@ public class GelenPMActivity extends Activity {
                     //mesaj okundu json
                 }
             });
+
             //Button btn = (Button)view.findViewById(R.id.button2);
             //btn.setOnClickListener(new View.OnClickListener() {
             //    @Override
@@ -147,8 +150,21 @@ public class GelenPMActivity extends Activity {
             //    }
             //});
             TextView section = (TextView) view.findViewById(R.id.section);
-            section.setText(String.valueOf(position));
-            Log.d("position : " , String.valueOf(position));
+            section.setText(currentElement.getTitle());
+            TextView sender = (TextView) view.findViewById(R.id.adsoyad);
+            sender.setText(currentElement.getSender());
+            TextView date = (TextView) view.findViewById(R.id.textView10);
+            date.setText(currentElement.getDate());
+            ImageView tick = (ImageView)view.findViewById(R.id.imageView3);
+            if(currentElement.getRead() == 1) {
+                tick.setImageResource(R.drawable.tick2);
+                Log.d("Okunan İlan id : ",String.valueOf(currentElement.getMsgid()));
+            }
+            else {
+                tick.setImageResource(R.drawable.tick);
+                Log.d("Okunmayan İlan id : ", String.valueOf(currentElement.getMsgid()));
+            }
+
             return view;
         }
 

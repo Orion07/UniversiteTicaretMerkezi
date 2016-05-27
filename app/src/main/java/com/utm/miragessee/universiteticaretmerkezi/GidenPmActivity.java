@@ -3,6 +3,8 @@ package com.utm.miragessee.universiteticaretmerkezi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -32,24 +36,7 @@ public class GidenPmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giden_pm);
 
-        PMessage p = new PMessage(1,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p2 = new PMessage(2,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p3 = new PMessage(3,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p4 = new PMessage(4,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p5 = new PMessage(5,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p6 = new PMessage(6,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p7 = new PMessage(7,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaa",true);
-        PMessage p8 = new PMessage(8,"asdf","qwer", Date.valueOf("25-05-2016"),"zaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",true);
-        ArrayList<PMessage> list = new ArrayList<PMessage>();
-        list.add(p);
-        list.add(p2);
-        list.add(p3);
-        list.add(p4);
-        list.add(p5);
-        list.add(p6);
-        list.add(p7);
-        list.add(p8);
-        PMessageAdapter adapter = new PMessageAdapter(GidenPmActivity.this,list);
+        PMessageAdapter adapter = new PMessageAdapter(GidenPmActivity.this,null);
         ListView listview = (ListView)findViewById(R.id.listView6);
         listview.setAdapter(adapter);
     }
@@ -87,6 +74,8 @@ public class GidenPmActivity extends Activity {
                 LayoutInflater inflaterPassword = getLayoutInflater();
                 view = inflaterPassword.inflate(R.layout.pm_list, null);
             }
+            if(list.size()<=0)
+                return view;
 
             final PMessage currentElement = list.get(position);
             TableRow tableRow = (TableRow) view.findViewById(R.id.tablepm);
@@ -94,42 +83,25 @@ public class GidenPmActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getParent());
-                    LayoutInflater inflaterPhone = getLayoutInflater();
-                    final View pmLayout = inflaterPhone.inflate(R.layout.pm_dialog, null);
-                    builder.setView(pmLayout);
-                    TextView msg = (TextView) pmLayout.findViewById(R.id.msg);
-                    final EditText newmsg = (EditText) pmLayout.findViewById(R.id.newmsg);
-                    newmsg.setEnabled(false);
-                    msg.setMovementMethod(new ScrollingMovementMethod());
+                    Context ctx = getParent().getApplicationContext();
+                    LinearLayout layout = new LinearLayout(ctx);
+                    layout.setOrientation(LinearLayout.VERTICAL);
+                    TextView title = new TextView(ctx);
+                    title.setText("Gönderdiğiniz Mesaj : ");
+                    title.setTypeface(null, Typeface.BOLD);
+                    title.setTextColor(Color.BLACK);
+                    layout.addView(title);
+                    TextView msg = new TextView(ctx);
                     msg.setText(currentElement.getMessage());
-                    final CheckBox chk = (CheckBox)pmLayout.findViewById(R.id.checkBox);
-                    chk.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if(chk.isChecked()){
-                                newmsg.setEnabled(true);
-                            }else{
-                                newmsg.setEnabled(false);
-                            }
-                        }
-                    });
-                    builder.setPositiveButton("Gönder", new DialogInterface.OnClickListener() {
+                    msg.setTextColor(Color.BLACK);
+                    layout.addView(msg);
+                    builder.setView(layout);
+                    builder.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(chk.isChecked()){
-                                //json
-                            }
-                        }
-                    });
-                    builder.setNegativeButton("İptal", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d("PHONE CANCEL ", "CANCEL tuşuna basildi");
                         }
                     });
                     builder.show();
-                    Log.i("Message Click Event : ", String.valueOf(position));
-                    //mesaj okundu json
                 }
             });
             //Button btn = (Button)view.findViewById(R.id.button2);
@@ -144,7 +116,9 @@ public class GidenPmActivity extends Activity {
             //});
             TextView section = (TextView) view.findViewById(R.id.section);
             section.setText(String.valueOf(position));
-            Log.d("position : " , String.valueOf(position));
+            Log.d("position : ", String.valueOf(position));
+            TextView txt = (TextView) view.findViewById(R.id.textView7);
+            txt.setText("Kime : ");
             return view;
         }
 

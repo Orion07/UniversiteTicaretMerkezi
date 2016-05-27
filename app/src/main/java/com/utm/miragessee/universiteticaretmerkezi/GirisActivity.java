@@ -81,7 +81,7 @@ public class GirisActivity extends AppCompatActivity {
             func.put("method_name", "login");
             func.put("method_params",params);
         } catch (JSONException ex) {
-
+            throw new RuntimeException(ex);
         }
         RestFul restful = new RestFul();
         String JSONResponse = restful.JSONRequest(func);

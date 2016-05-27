@@ -89,7 +89,7 @@ public class IlanEkleActivity extends AppCompatActivity {
                     builder.setSingleChoiceItems(Basic.categories, category_id, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int position) {
-                            category_id = position;
+                            category_id = position + 1;
                         }
                     });
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
