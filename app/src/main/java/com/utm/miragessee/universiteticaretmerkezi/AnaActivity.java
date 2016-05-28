@@ -2,6 +2,8 @@ package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,8 +85,20 @@ public class AnaActivity extends AppCompatActivity
         Bundle b = getIntent().getExtras();
         email = b.getString("email");
         login_token = b.getString("login_token");
+        handleIntent(getIntent());
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
     }
 
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Log.d("QUERY : ",query);
+        }
+    }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Log.i("List Index : ", String.valueOf(position));
@@ -115,6 +130,7 @@ public class AnaActivity extends AppCompatActivity
             getMenuInflater().inflate(R.menu.ana, menu);
             return true;
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -139,7 +155,8 @@ public class AnaActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction(Uri uri)
+    {
 
     }
 

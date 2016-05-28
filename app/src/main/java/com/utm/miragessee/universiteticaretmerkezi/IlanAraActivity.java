@@ -1,67 +1,59 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.MatrixCursor;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import Functions.Basic;
+import Functions.IRestfulTask;
 import Functions.RestFul;
+import JsonParser.ElementManager;
 import JsonParser.Signup;
 
 
-public class IlanAraActivity extends AppCompatActivity {
+public class IlanAraActivity extends AppCompatActivity implements IRestfulTask{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ilan_ara);
-        handleIntent(getIntent());
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSignupProcess();
-            }
-        });
+
     }
-
-    public void onSignupProcess()
-    {
-        Basic bf = new Basic();
-        JSONObject params = null, func = null;
-        try {
-            params = new JSONObject();
-            params.put("ad","hakan");
-            params.put("cinsiyet","ibne");
-            func = new JSONObject();
-            func.put("method_name", "gavathakan");
-            func.put("method_params",params);
-        } catch (JSONException ex) {
-
-        }
-        RestFul restful = new RestFul();
-        String JSONResponse = restful.JSONRequest(func);
-        Signup signup = new Signup(JSONResponse);
-        bf.MsgBox(getApplicationContext(), signup.getMessage());
-        if(signup.getResult() == 1)
-            this.finish();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -71,18 +63,8 @@ public class IlanAraActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                System.out.println("QUERY TEXT : " + newText);
-                return false;
-            }
-        });
+        searchView.setSubmitButtonEnabled(false);
+        searchView.setIconifiedByDefault(true);
         return true;
     }
 
@@ -95,8 +77,10 @@ public class IlanAraActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-            Toast.makeText(IlanAraActivity.this, query, Toast.LENGTH_SHORT).show();
+            ListView listView = (ListView)findViewById(R.id.listView8);
+            listView.setAdapter(null);
+            System.out.println("QUERY TEXT2 : " + query);
+            searchAdvert(query);
         }
     }
 
@@ -113,5 +97,161 @@ public class IlanAraActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void searchAdvert(String query)
+    {
+        JSONObject params = null,func = null;
+        try {
+            params = new JSONObject();
+            params.put("email", AnaActivity.getEmail());
+            params.put("login_token", AnaActivity.getLogin_token());
+            params.put("query",query);
+            func = new JSONObject();
+            func.put("method_params", params);
+            func.put("method_name", "searchAdvert");
+            RestfulTask task = new RestfulTask();
+            task.execute(func);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    public ArrayList<ElementManager> parseJSON(String jsonStr)
+    {
+        ArrayList<ElementManager> elementsList = new ArrayList<ElementManager>();
+        try {
+            JSONObject json = new JSONObject(jsonStr);
+            if(json.has("searchAdvert")) {
+                JSONObject jsonCategory = (JSONObject) json.get("searchAdvert");
+                int result = jsonCategory.getInt("result");
+                if(result == 1) {
+                    JSONArray jsonArray = jsonCategory.getJSONArray("list");
+                    for(int i = 0;i<jsonArray.length();i++)
+                    {
+                        JSONObject obj = jsonArray.getJSONObject(i);
+                        int advertid = obj.getInt("advert_id");
+                        String photo = obj.getString("photodata");
+                        String title = obj.getString("title");
+                        Log.d("Title : ",title);
+                        String city = Basic.cities[obj.getInt("cityPosition")];
+                        String price = String.valueOf(obj.getInt("price"));
+                        ElementManager element = new ElementManager(advertid,photo,title,city,price);
+                        elementsList.add(element);
+                    }
+                }
+
+            }else
+            {
+                Log.i("JSON ILANARA : ", "Ilanlari çekerken hata oluştu");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return elementsList;
+    }
+    @Override
+    public void postResult(String s)
+    {
+
+        ArrayList<ElementManager> list = parseJSON(s);
+        Log.d("Ilanlar : ", s);
+        ElementAdapter adapter = new ElementAdapter(list);
+        ListView listView = (ListView)findViewById(R.id.listView8);
+        listView.setAdapter(adapter);
+    }
+
+    private class ElementAdapter extends ArrayAdapter<ElementManager> {
+        ArrayList<ElementManager> elementsList = null;
+        public ElementAdapter(ArrayList<ElementManager> elementsList) {
+            super(IlanAraActivity.this, R.layout.list_single, elementsList);
+            this.elementsList = elementsList;
+        }
+
+        @Override
+        public View getView(final int position, View view, ViewGroup parent) {
+            if (view == null)
+                view = getLayoutInflater().inflate(R.layout.list_single, null, false);
+
+            final ElementManager currentElement = elementsList.get(position);
+            TableRow tableRow = (TableRow) view.findViewById(R.id.tablerow);
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("advertid",currentElement.getId());
+                    Intent detail = new Intent(IlanAraActivity.this, IlanActivity.class);
+                    detail.putExtras(bundle);
+                    startActivity(detail);
+                }
+            });
+            TextView section = (TextView) view.findViewById(R.id.section);
+            TextView location = (TextView) view.findViewById(R.id.location);
+            TextView price = (TextView) view.findViewById(R.id.price);
+            section.setText(currentElement.getBaslik());
+            location.setText(currentElement.getKonum());
+            price.setText(currentElement.getFiyat());
+            ImageView img = (ImageView) view.findViewById(R.id.img);
+            Basic b = new Basic();
+            Bitmap map = b.decompressImage(currentElement.getResim());
+            img.setScaleType(ImageView.ScaleType.FIT_XY);
+            img.setImageBitmap(map);
+            return view;
+        }
+    }
+    public class RestfulTask extends AsyncTask<JSONObject,Void,String>
+    {
+        public String restfulURL = getString(R.string.restfulURL);
+        public IRestfulTask delegate = null;
+        private ProgressDialog pdia;
+        @Override
+        protected String doInBackground(JSONObject... params) {
+            HttpClient httpClient = new DefaultHttpClient();
+            JSONObject json = params[0];
+            try {
+                HttpPost request = new HttpPost(restfulURL);
+                System.out.println("JSON DATA2 : " + json.toString());
+                StringEntity entity = new StringEntity(json.toString());
+                request.addHeader("content-type", "application/x-www-form-urlencoded");
+                request.setEntity(entity);
+                HttpResponse response = httpClient.execute(request);
+                System.out.println("Status Code : " + response.getStatusLine());
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                String NL = System.getProperty("line.separator");
+                while ((line = rd.readLine()) != null) {
+                    sb.append(line + NL);
+                }
+                rd.close();
+                return sb.toString();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return "";
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdia = new ProgressDialog(IlanAraActivity.this);
+            pdia.setMessage("İlanlar Aranıyor...");
+            pdia.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            postResult(result);
+            pdia.dismiss();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onCancelled(String result) {
+            super.onCancelled(result);
+        }
     }
 }

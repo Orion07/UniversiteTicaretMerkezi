@@ -53,25 +53,7 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ilan);
-        Bundle bundle = getIntent().getExtras();
-        int advertid = bundle.getInt("advertid");
-        JSONObject obj = null,func = null;
-        try
-        {
-            obj = new JSONObject();
-            obj.put("email",AnaActivity.getEmail());
-            obj.put("login_token",AnaActivity.getLogin_token());
-            obj.put("advert_id",advertid);
-            func = new JSONObject();
-            func.put("method_name","getAdvert");
-            func.put("method_params",obj);
-            RestfulTask task = new RestfulTask();
-            task.execute(func);
-        }catch (Exception ex)
-        {
-            Log.d("GET ADVERT : ", ex.getMessage());
-        }
-
+        getAdvert();
     }
 
     @Override
@@ -94,6 +76,57 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void getAdvert()
+    {
+        Bundle bundle = getIntent().getExtras();
+        int advertid = bundle.getInt("advertid");
+        JSONObject obj = null,func = null;
+        try
+        {
+            obj = new JSONObject();
+            obj.put("email",AnaActivity.getEmail());
+            obj.put("login_token",AnaActivity.getLogin_token());
+            obj.put("advert_id",advertid);
+            func = new JSONObject();
+            func.put("method_name","getAdvert");
+            func.put("method_params",obj);
+            RestfulTask task = new RestfulTask();
+            task.execute(func);
+        }catch (Exception ex)
+        {
+            Log.d("GET ADVERT : ", ex.getMessage());
+        }
+    }
+    public void sendMessage(int userid,int advertid,String message)
+    {
+        JSONObject params = null, func = null;
+        Basic b = new Basic();
+        try {
+            params = new JSONObject();
+            params.put("email", AnaActivity.getEmail());
+            params.put("login_token", AnaActivity.getLogin_token());
+            params.put("user_id", userid);
+            params.put("advert_id",advertid);
+            params.put("message", message);
+            func = new JSONObject();
+            func.put("method_params", params);
+            func.put("method_name", "addMessage");
+            RestFul restFul = new RestFul();
+            String str = restFul.JSONRequest(func);
+            JSONObject obj = new JSONObject(str);
+            if (obj.has("AddMessage")) {
+                JSONObject r = obj.getJSONObject("addMessage");
+                int result = r.getInt("result");
+                if (result == 1) {
+                    b.MsgBox(IlanActivity.this, "Mesajınız Gönderildi");
+                } else {
+                    b.MsgBox(IlanActivity.this,"Mesajı gönderirken bir hata oluştu");
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     public class GalleryAdapter extends BaseAdapter
     {
@@ -169,32 +202,7 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
                         String message = txt.getText().toString();
                         Basic b = new Basic();
                         if (message.length() > 0) {
-                            JSONObject params = null, func = null;
-                            try {
-                                params = new JSONObject();
-                                params.put("email", AnaActivity.getEmail());
-                                params.put("login_token", AnaActivity.getLogin_token());
-                                params.put("user_id", advert.getUserId());
-                                params.put("advert_id", advert.getAdvertId());
-                                params.put("message", message);
-                                func = new JSONObject();
-                                func.put("method_params", params);
-                                func.put("method_name", "addMessage");
-                                RestFul restFul = new RestFul();
-                                String str = restFul.JSONRequest(func);
-                                JSONObject obj = new JSONObject(str);
-                                if (obj.has("AddMessage")) {
-                                    JSONObject r = obj.getJSONObject("addMessage");
-                                    int result = r.getInt("result");
-                                    if (result == 1) {
-                                        b.MsgBox(IlanActivity.this, "Mesajınız Gönderildi");
-                                    } else {
-                                        b.MsgBox(IlanActivity.this,"Mesajı gönderirken bir hata oluştu");
-                                    }
-                                }
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
+                            sendMessage(advert.getUserId(),advert.getAdvertId(),message);
                         } else {
                             b.MsgBox(IlanActivity.this, "Boş Mesaj Gönderemezsiniz");
                         }

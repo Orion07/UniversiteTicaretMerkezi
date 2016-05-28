@@ -18,19 +18,19 @@ public class ProfileActivity extends TabActivity {
 
         TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
 
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("Profilim");
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("Mesajlarım");
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("Ilanlarım");
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("Profil");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Mesajlar");
+        TabHost.TabSpec tab3 = tabHost.newTabSpec("Ilanlar");
 
-        tab1.setIndicator("Profilim");
+        tab1.setIndicator("Profil");
         //tab1.setIndicator("Profilim", getResources().getDrawable(R.drawable.common_signin_btn_icon_pressed_light));
         tab1.setContent(new Intent(this, DetailActivity.class));
 
-        tab2.setIndicator("Mesajlarım");
+        tab2.setIndicator("Mesajlar");
         //tab2.setIndicator("Mesajlarım", getResources().getDrawable(R.drawable.base_drawer_message));
         tab2.setContent(new Intent(this, PmActivity.class));
 
-        tab3.setIndicator("Ilanlarım");
+        tab3.setIndicator("Ilanlar");
         tab3.setContent(new Intent(this,IlanlarimActivity.class));
 
         tabHost.addTab(tab1);

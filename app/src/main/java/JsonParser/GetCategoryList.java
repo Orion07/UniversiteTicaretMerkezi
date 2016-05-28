@@ -41,7 +41,7 @@ public class GetCategoryList
 
             }else
             {
-                Log.i("JSON LOGIN : ", "Login basarisiz oldu.");
+                Log.i("JSON CATEGORY : ", "Kategorileri çekerken hata oluştu");
             }
         } catch (JSONException e) {
             e.printStackTrace();
