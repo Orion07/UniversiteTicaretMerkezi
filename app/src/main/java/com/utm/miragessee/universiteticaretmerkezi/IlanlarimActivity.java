@@ -2,9 +2,11 @@ package com.utm.miragessee.universiteticaretmerkezi;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 
 import Functions.Basic;
 import Functions.IRestfulTask;
+import Functions.RestFul;
 import JsonParser.ElementManager;
 
 public class IlanlarimActivity extends Activity implements IRestfulTask{
@@ -114,6 +118,34 @@ public class IlanlarimActivity extends Activity implements IRestfulTask{
         }
         return elementsList;
     }
+    public void deleteAdvert(int advertid)
+    {
+        Basic b = new Basic();
+        JSONObject params = null,func = null;
+        try {
+            params = new JSONObject();
+            params.put("email", AnaActivity.getEmail());
+            params.put("login_token", AnaActivity.getLogin_token());
+            params.put("advert_id",advertid);
+            func = new JSONObject();
+            func.put("method_params", params);
+            func.put("method_name", "deleteAdvert");
+            RestFul restFul = new RestFul();
+            String strJson = restFul.JSONRequest(func);
+            JSONObject obj = new JSONObject(strJson);
+            if (obj.has("deleteAdvert")) {
+                JSONObject r = obj.getJSONObject("deleteAdvert");
+                int result = r.getInt("result");
+                if (result == 1) {
+                    b.MsgBox(getApplicationContext(), "İlan Silindi");
+                } else {
+                    b.MsgBox(getApplicationContext(), "İlanı silerken bir hata oluştu");
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
     @Override
     public void postResult(String s)
     {
@@ -138,6 +170,7 @@ public class IlanlarimActivity extends Activity implements IRestfulTask{
                 view = getLayoutInflater().inflate(R.layout.list_single, null, false);
 
             final ElementManager currentElement = elementsList.get(position);
+            final Basic b = new Basic();
             TableRow tableRow = (TableRow) view.findViewById(R.id.tablerow);
             tableRow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,6 +182,35 @@ public class IlanlarimActivity extends Activity implements IRestfulTask{
                     startActivity(detail);
                 }
             });
+            tableRow.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.d("Table Row 2 : ", "Tabloya basilma durduruldu");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(IlanlarimActivity.this);
+                    ListView list = new ListView(IlanlarimActivity.this);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(IlanlarimActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, new String[]{"Sil","Düzenle"});
+                    list.setAdapter(adapter);
+                    builder.setView(list);
+                    final AlertDialog dialog = builder.create();
+                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            switch (position) {
+                                case 0:
+                                    deleteAdvert(currentElement.getId());
+                                    break;
+                                case 1:
+                                    b.MsgBox(getApplicationContext(), "Düzenle sonra eklenecektir.");
+                                    break;
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                    v.setPressed(false);
+                    return false;
+                }
+            });
             TextView section = (TextView) view.findViewById(R.id.section);
             TextView location = (TextView) view.findViewById(R.id.location);
             TextView price = (TextView) view.findViewById(R.id.price);
@@ -156,7 +218,6 @@ public class IlanlarimActivity extends Activity implements IRestfulTask{
             location.setText(currentElement.getKonum());
             price.setText(currentElement.getFiyat());
             ImageView img = (ImageView) view.findViewById(R.id.img);
-            Basic b = new Basic();
             Bitmap map = b.decompressImage(currentElement.getResim());
             img.setScaleType(ImageView.ScaleType.FIT_XY);
             img.setImageBitmap(map);

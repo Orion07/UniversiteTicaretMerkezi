@@ -1,29 +1,21 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SearchView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -31,28 +23,26 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import Fragments.ShowListFragment;
 import Functions.Basic;
 import Functions.IRestfulTask;
-import JsonParser.Categories;
-import JsonParser.CategoryManager;
+import JsonParser.ElementManager;
 import JsonParser.Elements;
 import JsonParser.GetCategoryList;
 
 
 public class AnaActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ShowListFragment.OnFragmentInteractionListener,IRestfulTask {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ShowListFragment.OnFragmentInteractionListener ,IRestfulTask{
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private static String email = "";
     private static String login_token = "";
     private Elements e;
+    private int pos;
     public static String getEmail() {
         return email;
     }
@@ -85,19 +75,6 @@ public class AnaActivity extends AppCompatActivity
         Bundle b = getIntent().getExtras();
         email = b.getString("email");
         login_token = b.getString("login_token");
-        handleIntent(getIntent());
-    }
-    @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.d("QUERY : ",query);
-        }
     }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -106,14 +83,11 @@ public class AnaActivity extends AppCompatActivity
             //profile activity
         }
         else {
+            this.pos = position;
             e = new Elements();
             RestfulTask task = new RestfulTask();
             task.execute(e.getList(position));
-            Categories c = new Categories();
-            ArrayList<CategoryManager> manager = c.getCategoriesList();
-            CategoryManager catManager = manager.get(position - 1);
-            if(catManager != null)
-                setFragmenTitle(catManager.getCateName());
+            setFragmenTitle(Basic.categories[position - 1]);
         }
     }
     public void setFragmenTitle(String title) {
@@ -159,7 +133,6 @@ public class AnaActivity extends AppCompatActivity
     {
 
     }
-
     @Override
     public void postResult(String s)
     {
@@ -167,8 +140,17 @@ public class AnaActivity extends AppCompatActivity
         GetCategoryList catList = new GetCategoryList(s);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ShowListFragment.newInstance(catList.list()))
+                .replace(R.id.container, ShowListFragment.newInstance(catList.list(),pos))
                 .commit();
+        //elementsList = catList.list();
+        //ArrayAdapter<ElementManager> adapter = new ElemanlarManagerListAdapter();
+        //listView2.setAdapter(adapter);
+        //swipeLayout.setRefreshing(false);
+
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        //fragmentManager.beginTransaction()
+        //        .replace(R.id.container, ShowListFragment.newInstance(catList.list()))
+        //        .commit();
     }
 
     public class RestfulTask extends AsyncTask<JSONObject,Void,String>
@@ -178,11 +160,12 @@ public class AnaActivity extends AppCompatActivity
         private ProgressDialog pdia;
         @Override
         protected String doInBackground(JSONObject... params) {
+
             HttpClient httpClient = new DefaultHttpClient();
-            JSONObject json = params[0];
             try {
+                JSONObject json = params[0];
                 HttpPost request = new HttpPost(restfulURL);
-                //System.out.println("JSON DATA2 : " + json.toString());
+                System.out.println("JSON DATA2 : " + json.toString());
                 StringEntity entity = new StringEntity(json.toString());
                 request.addHeader("content-type", "application/x-www-form-urlencoded");
                 request.setEntity(entity);
@@ -209,6 +192,7 @@ public class AnaActivity extends AppCompatActivity
             pdia = new ProgressDialog(AnaActivity.this);
             pdia.setMessage("Loading...");
             pdia.show();
+
         }
 
         @Override
@@ -228,4 +212,6 @@ public class AnaActivity extends AppCompatActivity
             super.onCancelled(result);
         }
     }
+
+
 }

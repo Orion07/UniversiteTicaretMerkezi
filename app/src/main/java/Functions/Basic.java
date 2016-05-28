@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -14,7 +13,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
@@ -66,22 +64,14 @@ public class Basic
             "Ufuk Üniversitesi","Ukrayna Ulusal Teknik Üniversitesi","Uludağ Üniversitesi","Uluslararası Saraybosna Üniversitesi","Uluslararasi Kıbrıs Üniversitesi",
             "Uşak Üniversitesi","Yakın Doğu Üniversitesi","Yalova Üniversitesi","Yaşar Üniversitesi","Yeditepe Üniversitesi","Yeni Yüzyıl Üniversitesi","Yıldırım Beyazıt Üniversitesi",
             "Yıldız Teknik Üniversitesi","Yüzüncü Yıl Üniversitesi","Zirve Üniversitesi","Zonguldak Karaelmas Üniversitesi"};
-    public static String[] categories = {"Elektronik","Kirtasiye","Ev arkadasi","Ozel Ders Verenler","Is ilanlari","Spor,Diger"};
-    CharSequence[] tabNames = {"Profil","Mesajlar"};
+    public static String[] categories = {"Elektronik","Kirtasiye","Ev arkadasi","Ozel Ders Verenler","Is ilanlari","Spor","Diger"};
+
     public boolean checkEmail(String email)
     {
         if(email.indexOf("@")>-1 && email.endsWith("edu.tr"))
             return true;
         else
             return false;
-    }
-    public CharSequence getTabName(int index)
-    {
-        return tabNames[index];
-    }
-    public int getTabCount()
-    {
-        return tabNames.length;
     }
     public void MsgBox(Context ctx,String msg)
     {
@@ -119,7 +109,7 @@ public class Basic
             GZIPOutputStream gzipOstream = null;
             try {
                 gzipOstream = new GZIPOutputStream(stream);
-                myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, gzipOstream);
+                myBitmap.compress(Bitmap.CompressFormat.JPEG, 15, gzipOstream);
                 gzipOstream.flush();
             } finally {
                 gzipOstream.close();

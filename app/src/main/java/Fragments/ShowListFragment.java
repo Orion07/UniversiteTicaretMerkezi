@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Base64;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.utm.miragessee.universiteticaretmerkezi.AnaActivity;
-import com.utm.miragessee.universiteticaretmerkezi.DetailActivity;
 import com.utm.miragessee.universiteticaretmerkezi.IlanActivity;
 import com.utm.miragessee.universiteticaretmerkezi.R;
 
@@ -35,23 +33,26 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import Functions.Basic;
 import Functions.IRestfulTask;
-import JsonParser.Advert;
+import Functions.RestFul;
 import JsonParser.CategoryManager;
 import JsonParser.ElementManager;
+import JsonParser.Elements;
 import JsonParser.GetCategoryList;
 
-public class ShowListFragment extends Fragment {
+public class ShowListFragment extends Fragment{
 
     public static ArrayList<ElementManager> elementsList = new ArrayList<ElementManager>();
     private ListView listView2;
-
+    SwipeRefreshLayout swipeLayout;
+    private int position;
+    //private boolean state;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    protected AnaActivity mActivity;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,16 +65,19 @@ public class ShowListFragment extends Fragment {
     }
 
 
-    public static ShowListFragment newInstance(ArrayList<ElementManager> list) {
-        ShowListFragment fragment = new ShowListFragment(list);
+    public static ShowListFragment newInstance(ArrayList<ElementManager> list,int position) {
+
+        ShowListFragment fragment = new ShowListFragment(list,position);
+
         //Bundle args = new Bundle();
         //fragment.setArguments(args);
 
         return fragment;
     }
 
-    public ShowListFragment(ArrayList<ElementManager> list)
+    public ShowListFragment(ArrayList<ElementManager> list,int position)
     {
+        this.position = position;
         elementsList = list;
         System.out.println("Elements List Size : " + list.size());
         Log.i("Fragmen Log", "ben geldim");
@@ -92,19 +96,16 @@ public class ShowListFragment extends Fragment {
             //Log.i("Category : ",cat.getCateName());
         }
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_showlist, container, false);
-
         listView2 = (ListView) view.findViewById(R.id.listView2);
-        /*elementsList.add(new ElementManager("resim","test","antalya","100"));
-        elementsList.add(new ElementManager("resim","test2","istanbul","200"));
-        elementsList.add(new ElementManager("resim","test3","izmir","300"));*/
         ArrayAdapter<ElementManager> adapter = new ElemanlarManagerListAdapter();
         listView2.setAdapter(adapter);
-
+        Log.d("ADAPTER 2 ", "çağrıldım qnq");
         return view;
     }
 
@@ -118,6 +119,7 @@ public class ShowListFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        mActivity = (AnaActivity)activity;
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
