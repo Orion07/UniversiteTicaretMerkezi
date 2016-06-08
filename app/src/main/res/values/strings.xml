@@ -19,9 +19,9 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
-    <string name="title_activity_ilan_ekle">IlanEkleActivity</string>
-    <string name="title_activity_ilan_ara">IlanAraActivity</string>
-    <string name="search">search</string>
+    <string name="title_activity_ilan_ekle">İlan Oluştur</string>
+    <string name="title_activity_ilan_ara">İlan Ara</string>
+    <string name="search">Ara</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_pm">PmActivity</string>
     <string name="title_activity_ilan">IlanActivity</string>

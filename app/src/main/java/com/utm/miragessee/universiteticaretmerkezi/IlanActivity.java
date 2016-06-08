@@ -169,6 +169,7 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
     public void postResult(String s)
     {
         final Advert advert = new Advert(s);
+        setTitle(advert.getTitle());
         Gallery gallery =(Gallery)findViewById(R.id.gallery);
         GalleryAdapter galleryObj = new GalleryAdapter(this,advert.getPhotoList());
         gallery.setSpacing(1);
