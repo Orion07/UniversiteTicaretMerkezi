@@ -109,6 +109,11 @@ public class AnaActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        // your code.
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Basic b = new Basic();
         int id = item.getItemId();
