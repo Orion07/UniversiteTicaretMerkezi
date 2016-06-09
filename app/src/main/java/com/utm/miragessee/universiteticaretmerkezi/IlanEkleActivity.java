@@ -300,6 +300,11 @@ public class IlanEkleActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if(id == R.id.ilanekleiptal)
+        {
+            //Log.d("İlan ekle","ilan ekle iptal basildi");
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }

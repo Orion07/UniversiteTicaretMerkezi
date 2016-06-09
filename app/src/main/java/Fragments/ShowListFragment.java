@@ -65,9 +65,9 @@ public class ShowListFragment extends Fragment{
     }
 
 
-    public static ShowListFragment newInstance(ArrayList<ElementManager> list,int position) {
+    public static ShowListFragment newInstance(ArrayList<ElementManager> list) {
 
-        ShowListFragment fragment = new ShowListFragment(list,position);
+        ShowListFragment fragment = new ShowListFragment(list);
 
         //Bundle args = new Bundle();
         //fragment.setArguments(args);
@@ -75,9 +75,8 @@ public class ShowListFragment extends Fragment{
         return fragment;
     }
 
-    public ShowListFragment(ArrayList<ElementManager> list,int position)
+    public ShowListFragment(ArrayList<ElementManager> list)
     {
-        this.position = position;
         elementsList = list;
         System.out.println("Elements List Size : " + list.size());
         Log.i("Fragmen Log", "ben geldim");

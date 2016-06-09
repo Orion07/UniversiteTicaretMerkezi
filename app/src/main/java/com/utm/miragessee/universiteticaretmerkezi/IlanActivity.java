@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
@@ -240,6 +241,8 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
                 txt.setInputType(EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE);
                 txt.setTextColor(Color.BLACK);
                 txt.setText(advert.getDetails());
+                txt.setMaxLines(1);
+                txt.setEllipsize(TextUtils.TruncateAt.END);
                 txt.setMovementMethod(new ScrollingMovementMethod());
                 builder.setView(txt);
                 builder.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
@@ -268,8 +271,8 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
             try {
                 HttpPost request = new HttpPost(restfulURL);
                 System.out.println("JSON DATA2 : " + json.toString());
-                StringEntity entity = new StringEntity(json.toString());
-                request.addHeader("content-type", "application/x-www-form-urlencoded");
+                StringEntity entity = new StringEntity(json.toString(),"UTF-8");
+                entity.setContentType("application/json");
                 request.setEntity(entity);
                 HttpResponse response = httpClient.execute(request);
                 System.out.println("Status Code : " + response.getStatusLine());

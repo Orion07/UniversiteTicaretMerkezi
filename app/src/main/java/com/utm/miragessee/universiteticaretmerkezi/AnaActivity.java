@@ -42,10 +42,10 @@ public class AnaActivity extends AppCompatActivity
     private static String email = "";
     private static String login_token = "";
     private Elements e;
-    private int pos;
     public static String getEmail() {
         return email;
     }
+    public boolean firsttime = false;
 
     public static String getLogin_token() {
         return login_token;
@@ -75,20 +75,11 @@ public class AnaActivity extends AppCompatActivity
         Bundle b = getIntent().getExtras();
         email = b.getString("email");
         login_token = b.getString("login_token");
+        getCategory(0);
     }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        Log.i("List Index : ", String.valueOf(position));
-        if(position == 0) {
-            //profile activity
-        }
-        else {
-            this.pos = position;
-            e = new Elements();
-            RestfulTask task = new RestfulTask();
-            task.execute(e.getList(position));
-            setFragmenTitle(Basic.categories[position - 1]);
-        }
+        getCategory(position);
     }
     public void setFragmenTitle(String title) {
         ActionBar actionBar = getSupportActionBar();
@@ -96,6 +87,18 @@ public class AnaActivity extends AppCompatActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(title);
 
+    }
+    public void getCategory(int position)
+    {
+        Log.i("List Index : ", String.valueOf(position));
+        Log.d("Email : ",email);
+        if(firsttime) {
+            e = new Elements();
+            RestfulTask task = new RestfulTask();
+            task.execute(e.getList(position));
+            setFragmenTitle(Basic.categories[position]);
+        }
+        firsttime = true;
     }
 
     @Override
@@ -145,7 +148,7 @@ public class AnaActivity extends AppCompatActivity
         GetCategoryList catList = new GetCategoryList(s);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ShowListFragment.newInstance(catList.list(),pos))
+                .replace(R.id.container, ShowListFragment.newInstance(catList.list()))
                 .commit();
         //elementsList = catList.list();
         //ArrayAdapter<ElementManager> adapter = new ElemanlarManagerListAdapter();
@@ -171,8 +174,8 @@ public class AnaActivity extends AppCompatActivity
                 JSONObject json = params[0];
                 HttpPost request = new HttpPost(restfulURL);
                 System.out.println("JSON DATA2 : " + json.toString());
-                StringEntity entity = new StringEntity(json.toString());
-                request.addHeader("content-type", "application/x-www-form-urlencoded");
+                StringEntity entity = new StringEntity(json.toString(),"UTF-8");
+                entity.setContentType("application/json");
                 request.setEntity(entity);
                 HttpResponse response = httpClient.execute(request);
                 System.out.println("Status Code : " + response.getStatusLine());

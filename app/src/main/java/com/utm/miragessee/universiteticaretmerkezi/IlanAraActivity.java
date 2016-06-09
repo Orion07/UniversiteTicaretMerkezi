@@ -209,8 +209,8 @@ public class IlanAraActivity extends AppCompatActivity implements IRestfulTask{
             try {
                 HttpPost request = new HttpPost(restfulURL);
                 System.out.println("JSON DATA2 : " + json.toString());
-                StringEntity entity = new StringEntity(json.toString());
-                request.addHeader("content-type", "application/x-www-form-urlencoded");
+                StringEntity entity = new StringEntity(json.toString(),"UTF-8");
+                entity.setContentType("application/json");
                 request.setEntity(entity);
                 HttpResponse response = httpClient.execute(request);
                 System.out.println("Status Code : " + response.getStatusLine());

@@ -39,9 +39,10 @@ public class RestFul
                 HttpPost request = new HttpPost(restfulURL);
                 System.out.println("JSON DATA : " + json.toString());
                 StringEntity entity = new StringEntity(json.toString(),"UTF-8");
+                entity.setContentType("application/json");
                 //request.addHeader("content-type", "application/x-www-form-urlencoded");
                 //request.addHeader("content-type", "application/x-www-form-urlencoded; charset=utf-8");
-                entity.setContentType("application/json");
+
                 request.setEntity(entity);
                 HttpResponse response = httpClient.execute(request);
                 System.out.println("Status Code : " + response.getStatusLine());
