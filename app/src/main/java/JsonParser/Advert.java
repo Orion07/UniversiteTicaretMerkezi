@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class Advert implements Serializable
 {
+
     private int result = -1;
     private int advertId;
     private int userId;
@@ -74,6 +75,10 @@ public class Advert implements Serializable
             ex.printStackTrace();
         }
     }
+    public int getResult() {
+        return result;
+    }
+
     public ArrayList<String> getPhotoList() {
         return photoList;
     }

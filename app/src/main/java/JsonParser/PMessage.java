@@ -44,7 +44,7 @@ public class PMessage implements Serializable
                     for (int i = 0; i < message.length(); i++) {
                         JSONObject m = message.getJSONObject(i);
                         Log.d("BOOL READ : ",String.valueOf(m.getInt("isread")));
-                        PMessage pm = new PMessage(m.getInt("id"),m.getInt("advert_id"),m.getInt("backup_sender"),m.getString("title"),m.getString("firstname") + " " +m.getString("lastname"),m.getString("date"),m.getString("message"),m.getInt("isread"),m.getString("phone"));
+                        PMessage pm = new PMessage(m.getInt("id"),m.getInt("advert_id"),m.getInt("sender_id"),m.getString("title"),m.getString("firstname") + " " +m.getString("lastname"),m.getString("date"),m.getString("message"),m.getInt("isread"),m.getString("phone"));
                         list.add(pm);
                     }
                 }

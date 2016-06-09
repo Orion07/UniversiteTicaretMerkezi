@@ -177,12 +177,12 @@ public class GelenPMActivity extends Activity {
     public class PMessageAdapter extends ArrayAdapter<PMessage>
     {
         private Context ctx;
-        private ArrayList<PMessage> list = null;
+        private ArrayList<PMessage> pmlist = null;
         public PMessageAdapter(Context ctx,ArrayList<PMessage> list)
         {
             super(ctx, R.layout.pm_list, list);
             this.ctx = ctx;
-            this.list = list;
+            this.pmlist = list;
         }
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
@@ -190,7 +190,7 @@ public class GelenPMActivity extends Activity {
                 LayoutInflater inflaterPassword = getLayoutInflater();
                 view = inflaterPassword.inflate(R.layout.pm_list, null);
             }
-            if(list.size()<=0){
+            if(pmlist.size()<=0){
                 LinearLayout layout = new LinearLayout(ctx);
                 layout.setOrientation(LinearLayout.VERTICAL);
                 TextView txt = new TextView(ctx);
@@ -200,7 +200,7 @@ public class GelenPMActivity extends Activity {
                 return layout;
             }
             final Basic b = new Basic();
-            final PMessage currentElement = list.get(position);
+            final PMessage currentElement = pmlist.get(position);
             final TextView section = (TextView) view.findViewById(R.id.section);
             section.setText(currentElement.getTitle());
             final  TextView sender = (TextView) view.findViewById(R.id.adsoyad);
@@ -278,6 +278,7 @@ public class GelenPMActivity extends Activity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             if (position == 0) {
                                 deleteMessage(currentElement.getMsgid(), true);
+                                pmlist.remove(currentElement);
                                 dialog.dismiss();
                             }
                         }

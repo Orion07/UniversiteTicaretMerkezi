@@ -16,6 +16,7 @@ import java.lang.Object;
 import java.net.URL;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.entity.ContentType;
 import org.json.*;
 //import org.apache.http.client.*;
 import org.apache.http.client.ClientProtocolException;
@@ -37,8 +38,10 @@ public class RestFul
             try {
                 HttpPost request = new HttpPost(restfulURL);
                 System.out.println("JSON DATA : " + json.toString());
-                StringEntity entity = new StringEntity(json.toString());
-                request.addHeader("content-type", "application/x-www-form-urlencoded");
+                StringEntity entity = new StringEntity(json.toString(),"UTF-8");
+                //request.addHeader("content-type", "application/x-www-form-urlencoded");
+                //request.addHeader("content-type", "application/x-www-form-urlencoded; charset=utf-8");
+                entity.setContentType("application/json");
                 request.setEntity(entity);
                 HttpResponse response = httpClient.execute(request);
                 System.out.println("Status Code : " + response.getStatusLine());

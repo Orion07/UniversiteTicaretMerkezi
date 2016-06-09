@@ -169,6 +169,7 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
     public void postResult(String s)
     {
         final Advert advert = new Advert(s);
+        if(advert.getResult()==1){
         setTitle(advert.getTitle());
         Gallery gallery =(Gallery)findViewById(R.id.gallery);
         GalleryAdapter galleryObj = new GalleryAdapter(this,advert.getPhotoList());
@@ -251,6 +252,9 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
             }
         });
 
+        }else {
+            setTitle("Böyle bir ilan yok");
+        }
     }
     public class RestfulTask extends AsyncTask<JSONObject,Void,String>
     {
@@ -295,6 +299,7 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Log.d("ADVERT GELEN : " , result);
             postResult(result);
             pdia.dismiss();
         }

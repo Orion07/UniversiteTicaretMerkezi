@@ -198,6 +198,7 @@ public class IlanlarimActivity extends Activity implements IRestfulTask{
                             switch (position) {
                                 case 0:
                                     deleteAdvert(currentElement.getId());
+                                    elementsList.remove(currentElement);
                                     break;
                                 case 1:
                                     b.MsgBox(getApplicationContext(), "Düzenle sonra eklenecektir.");
