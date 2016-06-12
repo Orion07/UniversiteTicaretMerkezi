@@ -17,7 +17,7 @@
 
         <Gallery
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="290dp"
             android:id="@+id/gallery"
             android:layout_gravity="center_horizontal" />
 

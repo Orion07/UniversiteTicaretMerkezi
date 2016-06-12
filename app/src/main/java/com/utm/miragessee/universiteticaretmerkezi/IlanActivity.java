@@ -1,5 +1,6 @@
 package com.utm.miragessee.universiteticaretmerkezi;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -234,8 +235,13 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(IlanActivity.this);
-                TextView txt = new TextView(IlanActivity.this);
+                //AlertDialog.Builder builder = new AlertDialog.Builder(IlanActivity.this);
+                final Dialog builder = new Dialog(IlanActivity.this);
+                builder.setContentView(R.layout.aciklama);
+                TextView txt = (TextView) builder.findViewById(R.id.textViewAciklama);
+                txt.setText(advert.getDetails());
+                //TextView txt = new TextView(IlanActivity.this);
+                /*
                 txt.setSingleLine(false);
                 txt.setGravity(Gravity.LEFT | Gravity.TOP);
                 txt.setInputType(EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -245,10 +251,18 @@ public class IlanActivity extends AppCompatActivity implements IRestfulTask{
                 txt.setEllipsize(TextUtils.TruncateAt.END);
                 txt.setMovementMethod(new ScrollingMovementMethod());
                 builder.setView(txt);
-                builder.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                */
+                /*builder.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });*/
+                Button buttonAciklama = (Button) builder.findViewById(R.id.buttonAciklama);
+                buttonAciklama.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        builder.dismiss();
                     }
                 });
                 builder.show();
