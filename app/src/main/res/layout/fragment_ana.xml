@@ -8,8 +8,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/detailButton"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+        <!--android:layout_above="@+id/detailButton" -->
+
 
         <ListView
             android:layout_width="fill_parent"

@@ -1,5 +1,6 @@
 package Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -60,17 +61,21 @@ public class ShowListFragment extends Fragment{
     TextView txt;
     public static CategoryManager cat;
     private OnFragmentInteractionListener mListener;
+
     public ShowListFragment(){
 
     }
-
 
     public static ShowListFragment newInstance(ArrayList<ElementManager> list) {
 
         ShowListFragment fragment = new ShowListFragment(list);
 
-        //Bundle args = new Bundle();
-        //fragment.setArguments(args);
+        /*Bundle args = new Bundle();
+        String s1 = fragment.getArguments().getString(ARG_PARAM1);
+        String s2 = fragment.getArguments().getString(ARG_PARAM2);
+        args.putString("key", s1);
+        args.putString("key", s2);
+        fragment.setArguments(args);*/
 
         return fragment;
     }
